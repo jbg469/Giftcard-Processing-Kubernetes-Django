@@ -1,29 +1,13 @@
 # Part 1
-
 We get the environment working per lab instructions. Gift card site successfully lanches on command. 
-
 <img width="1086" alt="Screen Shot 2022-04-14 at 3 43 19 PM" src="https://user-images.githubusercontent.com/72175659/163492337-b1a0e95a-a554-44a6-9dfd-5f23df33b368.png">
-
 For each control we will Verify, Remediatem Validate
-    
 ## Kubernetes Control 1 5.2.1:
 ### Subtask a (Validate findings)
 The bench mark book says that if we have a psp that does not return true then we pass the audit, however we see this is not the case. Pods defined with spec.containers[].securityContext.privileged: true will not be permitted.
-<img width="1081" alt="Screen Shot 2022-04-14 at 11 18 21 PM" src="https://user-images.githubusercontent.com/72175659/163512908-62234ae6-72e4-49d4-82c3-cb5a0f3d8b47.png">    
+<img width="1081" alt="Screen Shot 2022-04-14 at 11 18 21 PM" src="https://user-images.githubusercontent.com/72175659/163512908-62234ae6-72e4-49d4-82c3-cb5a0f3d8b47.png">
 ### Subtask b (Remediate)
-We remidiate the PSP by finding the name unrestricted in the django-psp.yaml 
-```
-We change 
-spec:
-  privileged: true
-```
-to 
-```
-spec:
-  privileged: false
-```
-<img width="1089" alt="jbg469 5 2 1 remediate" src="https://user-images.githubusercontent.com/72175659/163650275-16f86042-d360-4a73-b6d8-2e0da6caca34.png">
-
+We remidiate the PSP by finding the name unrestricted in the django-psp.yaml
 ### Subtask c (Verify finding resolution)
 ## Control 2 5.2.2:
 ### Subtask a
