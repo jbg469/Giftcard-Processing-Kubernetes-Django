@@ -11,6 +11,9 @@ We remidiate the PSP by finding the name unrestricted in the django-psp.yaml. We
 <img width="1089" alt="jbg469 5 2 1 remediate" src="https://user-images.githubusercontent.com/72175659/163651465-35df9ad3-bbee-4457-a845-755fb83d0642.png">
 
 ### Subtask c (Verify finding resolution)
+We run the comand ```kubectl apply -f GiftcardSite/k8```  and check to see no PSP return true. No PSP return true and kubect get psp shows us the privilege is false now.
+<img width="1089" alt="jbg469 5 2 1 resolution" src="https://user-images.githubusercontent.com/72175659/163652360-d7235518-6b68-4eb4-9288-1f1cf20f221e.png">
+
 ## Control 2 5.2.2:
 ### Subtask a
 ### Subtask b
