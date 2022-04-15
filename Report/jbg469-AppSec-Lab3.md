@@ -11,7 +11,6 @@ We remidiate the PSP by finding the name unrestricted in the django-psp.yaml
 ### Subtask c (Verify finding resolution)
 ## Control 2 5.2.2:
 ### Subtask a
-<img width="808" alt="Screen Shot 2022-04-15 at 6 10 44 PM" src="https://user-images.githubusercontent.com/72175659/163648400-22ef0e4d-c97a-4c2b-9396-e3446f53397d.png">
 ### Subtask b
 ### Subtask c
 ## Control 3 5.2.3:
