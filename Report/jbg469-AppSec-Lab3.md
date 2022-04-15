@@ -6,7 +6,7 @@ We get the environment working per lab instructions. Gift card site successfully
 
 For each control we will Verify, Remediatem Validate
     
-## Control 1:
+## Kubernetes Control 1 5.2.1:
 ### Subtask a (Validate findings)
 The bench mark book says that if we have a psp that does not return true then we pass the audit, however we see this is not the case. Pods defined with spec.containers[].securityContext.privileged: true will not be permitted.
 <img width="1081" alt="Screen Shot 2022-04-14 at 11 18 21 PM" src="https://user-images.githubusercontent.com/72175659/163512908-62234ae6-72e4-49d4-82c3-cb5a0f3d8b47.png">    
@@ -16,90 +16,90 @@ We remidiate the PSP by
 inser code here
 ```
 ### Subtask c (Verify finding resolution)
-## Control 2:
+## Control 2 5.2.2:
 ### Subtask a
 <img width="821" alt="Screen Shot 2022-04-15 at 2 01 03 PM" src="https://user-images.githubusercontent.com/72175659/163605043-bd4adc1a-fbdd-47ab-8db7-2f49ae8f67f4.png">
 
 ### Subtask b
 ### Subtask c
-## Control 3:
+## Control 3 5.2.3:
 ### Subtask a
 <img width="810" alt="image" src="https://user-images.githubusercontent.com/72175659/163607841-3a2b8c6b-7037-4b4b-945b-bb972f0fdf2b.png">
 
 ### Subtask b
 ### Subtask c
-## Control 4:
+## Control 4 5.2.4:
 ### Subtask a
 <img width="812" alt="Screen Shot 2022-04-15 at 2 32 27 PM" src="https://user-images.githubusercontent.com/72175659/163607908-f3a97538-94a0-4899-866d-bfb922ae63c8.png">
 
 ### Subtask b
 ### Subtask c
-## Control 5:
+## Control 5 5.2.5:
 ### Subtask a
 <img width="809" alt="Screen Shot 2022-04-15 at 2 33 05 PM" src="https://user-images.githubusercontent.com/72175659/163607976-e4e7212c-2267-4cd7-ba29-073cb2293e40.png">
 
 ### Subtask b
 ### Subtask c
-## Control 6:
+## Control 6 5.2.6:
 ### Subtask a
 <img width="809" alt="image" src="https://user-images.githubusercontent.com/72175659/163608020-60310130-9013-400f-ba39-4ef71eba6a82.png">
 
 ### Subtask b
 ### Subtask c
-## Control 7:
+## Control 7 5.2.7:
 ### Subtask a
 
 ### Subtask b
 ### Subtask c
-## Control 8:
+## Control 8 5.4.1:
 ### Subtask a
 ### Subtask b
 ### Subtask c
-## Control 9:
+## Control 9 5.7.1:
 ### Subtask a
 ### Subtask b
 ### Subtask c
-## Control 10:
+## Control 10 5.7.2:
 ### Subtask a
 ### Subtask b
 ### Subtask c
-## Control 11:
+## Docker Control 11 4.1:
 ### Subtask a
 ### Subtask b
 ### Subtask c
-## Control 12:
+## Control 12 4.2:
 ### Subtask a
 ### Subtask b
 ### Subtask c
-## Control 13:
+## Control 13 4.3:
 ### Subtask a
 ### Subtask b
 ### Subtask c
-## Control 14:
+## Control 14 4.9:
 ### Subtask a
 ### Subtask b
 ### Subtask c
-## Control 15:
+## Control 15 4.10:
 ### Subtask a
 ### Subtask b
 ### Subtask c
-## Control 16:
+## Oracle Control 16 1.2:
 ### Subtask a
 ### Subtask b
 ### Subtask c
-## Control 17:
+## Control 17 2.3:
 ### Subtask a
 ### Subtask b
 ### Subtask c
-## Control 18:
+## Control 18 2.7:
 ### Subtask a
 ### Subtask b
 ### Subtask c
-## Control 19:
+## Control 19 2.9:
 ### Subtask a
 ### Subtask b
 ### Subtask c
-## Control 20:
+## Control 20 4.2:
 ### Subtask a
 ### Subtask b
 ### Subtask c
