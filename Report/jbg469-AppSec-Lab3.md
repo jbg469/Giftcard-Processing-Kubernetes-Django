@@ -22,6 +22,8 @@ to
 spec:
   privileged: false
 ```
+<img width="1089" alt="jbg469 5 2 1 remediate" src="https://user-images.githubusercontent.com/72175659/163650275-16f86042-d360-4a73-b6d8-2e0da6caca34.png">
+
 ### Subtask c (Verify finding resolution)
 ## Control 2 5.2.2:
 ### Subtask a
