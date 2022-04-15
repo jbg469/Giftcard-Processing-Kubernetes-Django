@@ -24,7 +24,6 @@ inser code here
 ## Control 3 5.2.3:
 ### Subtask a
 <img width="805" alt="Screen Shot 2022-04-15 at 6 11 03 PM" src="https://user-images.githubusercontent.com/72175659/163648425-093e5d5e-33f8-4d09-8df3-aa3eff7b2fcd.png">
-![Uploading Screen Shot 2022-04-15 at 6.14.42 PM.png…]()
 ### Subtask b
 ### Subtask c
 ## Control 4 5.2.4:
