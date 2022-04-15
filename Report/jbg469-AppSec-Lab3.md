@@ -11,9 +11,16 @@ For each control we will Verify, Remediatem Validate
 The bench mark book says that if we have a psp that does not return true then we pass the audit, however we see this is not the case. Pods defined with spec.containers[].securityContext.privileged: true will not be permitted.
 <img width="1081" alt="Screen Shot 2022-04-14 at 11 18 21 PM" src="https://user-images.githubusercontent.com/72175659/163512908-62234ae6-72e4-49d4-82c3-cb5a0f3d8b47.png">    
 ### Subtask b (Remediate)
-We remidiate the PSP by 
+We remidiate the PSP by finding the name unrestricted in the django-psp.yaml 
 ```
-inser code here
+We change 
+spec:
+  privileged: true
+```
+to 
+```
+spec:
+  privileged: false
 ```
 ### Subtask c (Verify finding resolution)
 ## Control 2 5.2.2:
