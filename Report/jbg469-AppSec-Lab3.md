@@ -14,6 +14,8 @@ The bench mark book says that if we have a psp that does not return true then we
 ### Subtask c (Verify finding resolution)
 ## Control 2:
 ### Subtask a
+<img width="821" alt="Screen Shot 2022-04-15 at 2 01 03 PM" src="https://user-images.githubusercontent.com/72175659/163605043-bd4adc1a-fbdd-47ab-8db7-2f49ae8f67f4.png">
+
 ### Subtask b
 ### Subtask c
 ## Control 3:
