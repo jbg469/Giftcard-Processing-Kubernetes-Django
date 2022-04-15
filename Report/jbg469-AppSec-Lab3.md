@@ -18,45 +18,43 @@ inser code here
 ### Subtask c (Verify finding resolution)
 ## Control 2 5.2.2:
 ### Subtask a
-<img width="821" alt="Screen Shot 2022-04-15 at 2 01 03 PM" src="https://user-images.githubusercontent.com/72175659/163605043-bd4adc1a-fbdd-47ab-8db7-2f49ae8f67f4.png">
-
+<img width="808" alt="Screen Shot 2022-04-15 at 6 10 44 PM" src="https://user-images.githubusercontent.com/72175659/163648400-22ef0e4d-c97a-4c2b-9396-e3446f53397d.png">
 ### Subtask b
 ### Subtask c
 ## Control 3 5.2.3:
 ### Subtask a
-<img width="810" alt="image" src="https://user-images.githubusercontent.com/72175659/163607841-3a2b8c6b-7037-4b4b-945b-bb972f0fdf2b.png">
-
+<img width="805" alt="Screen Shot 2022-04-15 at 6 11 03 PM" src="https://user-images.githubusercontent.com/72175659/163648425-093e5d5e-33f8-4d09-8df3-aa3eff7b2fcd.png">
+![Uploading Screen Shot 2022-04-15 at 6.14.42 PM.png…]()
 ### Subtask b
 ### Subtask c
 ## Control 4 5.2.4:
 ### Subtask a
-<img width="812" alt="Screen Shot 2022-04-15 at 2 32 27 PM" src="https://user-images.githubusercontent.com/72175659/163607908-f3a97538-94a0-4899-866d-bfb922ae63c8.png">
-
+<img width="804" alt="Screen Shot 2022-04-15 at 6 11 27 PM" src="https://user-images.githubusercontent.com/72175659/163648451-a4b33dcd-36c7-47aa-8257-2c111d9b04f8.png">
 ### Subtask b
 ### Subtask c
 ## Control 5 5.2.5:
 ### Subtask a
-<img width="809" alt="Screen Shot 2022-04-15 at 2 33 05 PM" src="https://user-images.githubusercontent.com/72175659/163607976-e4e7212c-2267-4cd7-ba29-073cb2293e40.png">
-
+<img width="807" alt="Screen Shot 2022-04-15 at 6 11 48 PM" src="https://user-images.githubusercontent.com/72175659/163648489-98e0b282-1b42-4aea-9504-5c5f427c35b8.png">
 ### Subtask b
 ### Subtask c
 ## Control 6 5.2.6:
 ### Subtask a
-<img width="809" alt="image" src="https://user-images.githubusercontent.com/72175659/163608020-60310130-9013-400f-ba39-4ef71eba6a82.png">
-
+<img width="804" alt="Screen Shot 2022-04-15 at 6 12 24 PM" src="https://user-images.githubusercontent.com/72175659/163648521-49e0d90b-6626-4119-8125-ba02c50e07fe.png">
 ### Subtask b
 ### Subtask c
 ## Control 7 5.2.7:
 ### Subtask a
-
+<img width="803" alt="Screen Shot 2022-04-15 at 6 12 56 PM" src="https://user-images.githubusercontent.com/72175659/163648536-07906e69-a68f-4c50-96d2-8dd10a7858d0.png">
 ### Subtask b
 ### Subtask c
 ## Control 8 5.4.1:
 ### Subtask a
+<img width="809" alt="Screen Shot 2022-04-15 at 6 13 18 PM" src="https://user-images.githubusercontent.com/72175659/163648587-7a25b110-7c3c-489d-bb95-48ab49cb5b71.png">
 ### Subtask b
 ### Subtask c
 ## Control 9 5.7.1:
 ### Subtask a
+<img width="808" alt="Screen Shot 2022-04-15 at 6 15 24 PM" src="https://user-images.githubusercontent.com/72175659/163648681-1a4ec1b6-87f3-445b-a0c5-ad38e2c66782.png">
 ### Subtask b
 ### Subtask c
 ## Control 10 5.7.2:
