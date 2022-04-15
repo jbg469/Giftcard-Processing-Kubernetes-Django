@@ -61,6 +61,8 @@ inser code here
 ### Subtask c
 ## Control 10 5.7.2:
 ### Subtask a
+We see in VS code when we search for "securityContext" (Ctr+F) in all the pod definition files it doesn't exist, therefore confirming the benchmark security review that no seccomp profile is set in pod definitions.
+<img width="1018" alt="validate 5 7 2" src="https://user-images.githubusercontent.com/72175659/163626917-d5988f50-a468-40e9-ac86-a6e4d56a230a.png">
 ### Subtask b
 ### Subtask c
 ## Docker Control 11 4.1:
