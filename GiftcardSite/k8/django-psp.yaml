@@ -14,7 +14,7 @@ spec:
     rule: RunAsAny
   volumes:
     - "*"
-  hostIPC: true
-  hostPID: true
+  hostIPC: false
+  hostPID: false
   hostNetwork: true
   allowPrivilegeEscalation: true
