@@ -40,7 +40,10 @@ No PSP return true and kubect get psp shows us the privilege is false now.
 ### Subtask a
 
 ### Subtask b
+<img width="806" alt="image" src="https://user-images.githubusercontent.com/72175659/163656692-e1cc0c72-632e-4d9f-bb61-fa39df475873.png">
+
 ### Subtask c
+
 ## Control 4 5.2.4:
 ### Subtask a
 
