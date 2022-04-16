@@ -38,11 +38,22 @@ No PSP return true and kubect get psp shows us the privilege is false now.
 
 ## Control 3 5.2.3:
 ### Subtask a
+The benchmark book says that pods with spec.hostIPC: true will not be permitted unless they are run under a specific PSP. Containers run with the hostIPC flag can’t be set to true.
+We run the specified command in kubernetes benchmark manual and we return true which verifies the findings of the security audit.
+"kubectl get psp unrestricted -o=jsonpath='{.spec.hostIPC}'"
+
+<img width="619" alt="jbg469-screenshot5 2 3v" src="https://user-images.githubusercontent.com/72175659/163660600-882e5b0c-4316-4148-8e40-afd3fa0c1cdd.png">
 
 ### Subtask b
-<img width="806" alt="image" src="https://user-images.githubusercontent.com/72175659/163656692-e1cc0c72-632e-4d9f-bb61-fa39df475873.png">
+
+We change the hostIPC field to false
+
+<img width="607" alt="jbg469-screenshot5 2 3r" src="https://user-images.githubusercontent.com/72175659/163660697-22a4cf92-a4a2-4ff7-be57-137dcb5f98d7.png">
 
 ### Subtask c
+No PSP return true and kubect get psp shows us the privilege is false now. We run the comand kubectl apply -f GiftcardSite/k8 and check to see no PSP return true with the specified command in the benchmark book. "kubectl get psp unrestricted -o=jsonpath='{.spec.hostIPC}'"
+
+<img width="613" alt="jbg469-screenshot5 2 3res" src="https://user-images.githubusercontent.com/72175659/163660814-c4db592b-92a0-4c14-99c1-81c9ec8e357a.png">
 
 ## Control 4 5.2.4:
 ### Subtask a
