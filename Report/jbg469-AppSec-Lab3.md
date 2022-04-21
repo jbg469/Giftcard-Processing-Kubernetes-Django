@@ -74,6 +74,10 @@ After revoking the permission that allows sharing the host network namespace in 
 
 ## Control 5 5.2.5:
 ### Subtask a
+The benchmark book says the container running the allowPrivilegeEscalation flag set to true may have processes that can gain more privileges than their parent and this can’t be permitted. We run the specified command in kubernetes benchmark manual and we return true which verifies the findings of the security audit.
+"kubectl get psp unrestricted -o=jsonpath='{.spec.allowPrivilegeEscalation}'"
+
+<img width="783" alt="image" src="https://user-images.githubusercontent.com/72175659/164362401-7ad727b0-df8c-4725-ae0c-64cfeb02db2b.png">
 
 ### Subtask b
 ### Subtask c
