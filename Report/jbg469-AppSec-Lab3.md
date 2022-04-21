@@ -91,6 +91,7 @@ Once we apply the changes with the kubectl command, we check to see with the com
 ## Control 6 5.2.6:
 ### Subtask a
 In the benchmark book, it says to not permit containers to be run as the root user and all should be run as a defined non-UID 0 user. We run the specified command in kubernetes benchmark manual "kubectl get psp unrestricted -o=jsonpath='{.spec.runAsUser.rule}'" and the output shows as RunAsAny. 
+
 <img width="785" alt="image" src="https://user-images.githubusercontent.com/72175659/164363988-687a7a84-ed0d-4401-9860-4cdd452193b4.png">
 
 ### Subtask b
