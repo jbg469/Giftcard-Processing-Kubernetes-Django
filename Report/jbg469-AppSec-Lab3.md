@@ -57,6 +57,12 @@ No PSP return true and kubect get psp shows us the privilege is false now. We ru
 
 ## Control 4 5.2.4:
 ### Subtask a
+The benchmark book says that pods with spec.hostNetwork: true will not be permitted unless they are run under a specific PSP. Containers run with the hostIPC flag can’t be set to true.
+We run the specified command in kubernetes benchmark manual and we return true which verifies the findings of the security audit.
+"kubectl get psp unrestricted -o=jsonpath='{.spec.hostNetwork}'"
+<img width="926" alt="image" src="https://user-images.githubusercontent.com/72175659/164360407-edd61423-3cb7-4a6d-9b3c-a5eb42373b80.png">
+
+
 
 ### Subtask b
 ### Subtask c
