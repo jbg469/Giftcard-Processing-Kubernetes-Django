@@ -62,10 +62,16 @@ We run the specified command in kubernetes benchmark manual and we return true w
 "kubectl get psp unrestricted -o=jsonpath='{.spec.hostNetwork}'"
 <img width="926" alt="image" src="https://user-images.githubusercontent.com/72175659/164360407-edd61423-3cb7-4a6d-9b3c-a5eb42373b80.png">
 
-
-
 ### Subtask b
+We change the hostNetwork field to false in the django-psp.yaml file in GiftcardSite/k8. 
+<img width="784" alt="image" src="https://user-images.githubusercontent.com/72175659/164360744-98251694-82d1-4d55-a0d1-79ab88881329.png">
+
 ### Subtask c
+After revoking the permission that allows sharing the host network namespace in the appropriate PodSecurityPolicy we reapply the security policy with kubectl command kubectl apply -f GiftcardSite/k8. We check to see no PSP return true with the specified command in the benchmark book. "kubectl get psp unrestricted -o=jsonpath='{.spec.hostNetwork}'"
+
+<img width="787" alt="image" src="https://user-images.githubusercontent.com/72175659/164361290-da025cd2-0b86-4a8c-b2bd-f9a9197734b1.png">
+
+
 ## Control 5 5.2.5:
 ### Subtask a
 
