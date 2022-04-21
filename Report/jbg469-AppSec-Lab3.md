@@ -100,7 +100,7 @@ We Create a PSP as described in the Kubernetes documentation, ensuring that the 
 <img width="789" alt="image" src="https://user-images.githubusercontent.com/72175659/164364099-d21c7d1c-3467-4cc0-ad9d-6af13e084e75.png">
 
 ### Subtask c
-We run the command kubectl apply -f GiftcardSite/k8 and then run "kubectl get psp unrestricted -o=jsonpath='{.spec.runAsUser.rule}'". The output now shows as MustRunAsNonRoot.
+We run the command "kubectl apply -f GiftcardSite/k8 and then run "kubectl get psp unrestricted -o=jsonpath='{.spec.runAsUser.rule}'". The output now shows as MustRunAsNonRoot.
 
 <img width="1263" alt="image" src="https://user-images.githubusercontent.com/72175659/164550367-b5c091f9-25a6-4839-a8b2-09e0c4f0b658.png">
 
@@ -108,6 +108,8 @@ We run the command kubectl apply -f GiftcardSite/k8 and then run "kubectl get ps
 
 ## Control 7 5.2.7:
 ### Subtask a
+We run the command "kubectl get psp unrestricted -o=jsonpath='{.spec.requiredDropCapabilities}'<img width="781" alt="image" src="https://user-". Pods with containers which run with the NET_RAW capability will not be permitted
+images.githubusercontent.com/72175659/164551140-4c0e9f6b-146b-48ef-8b65-c09c6d799084.png">
 
 ### Subtask b
 ### Subtask c
