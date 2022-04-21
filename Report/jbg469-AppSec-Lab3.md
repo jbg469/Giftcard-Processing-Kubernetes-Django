@@ -108,11 +108,18 @@ We run the command "kubectl apply -f GiftcardSite/k8 and then run "kubectl get p
 
 ## Control 7 5.2.7:
 ### Subtask a
-We run the command "kubectl get psp unrestricted -o=jsonpath='{.spec.requiredDropCapabilities}'. Pods with containers which run with the NET_RAW capability will not be permitted
+We run the command "kubectl get psp unrestricted -o=jsonpath='{.spec.requiredDropCapabilities}'. We verify that there is at least one PSP which returns NET_RAW or ALL.
 images.githubusercontent.com/72175659/164551140-4c0e9f6b-146b-48ef-8b65-c09c6d799084.png">
 
 ### Subtask b
+We create a PSP as described in the Kubernetes documentation, ensuring that the .spec.requiredDropCapabilities is set to include either NET_RAW or ALL
+
+<img width="783" alt="image" src="https://user-images.githubusercontent.com/72175659/164552374-f4f1b968-6ade-4e82-9654-198a25fc4782.png">
+
 ### Subtask c
+<img width="780" alt="image" src="https://user-images.githubusercontent.com/72175659/164552577-a0050d0c-e8cf-4556-a4cb-26a3d0238be7.png">
+
+
 ## Control 8 5.4.1:
 ### Subtask a
 
