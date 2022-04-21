@@ -108,7 +108,7 @@ We run the command "kubectl apply -f GiftcardSite/k8 and then run "kubectl get p
 
 ## Control 7 5.2.7:
 ### Subtask a
-We run the command "kubectl get psp unrestricted -o=jsonpath='{.spec.requiredDropCapabilities}'<img width="781" alt="image" src="https://user-". Pods with containers which run with the NET_RAW capability will not be permitted
+We run the command "kubectl get psp unrestricted -o=jsonpath='{.spec.requiredDropCapabilities}'. Pods with containers which run with the NET_RAW capability will not be permitted
 images.githubusercontent.com/72175659/164551140-4c0e9f6b-146b-48ef-8b65-c09c6d799084.png">
 
 ### Subtask b
