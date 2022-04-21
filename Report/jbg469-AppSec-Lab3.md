@@ -122,6 +122,8 @@ We create a PSP as described in the Kubernetes documentation, ensuring that the 
 
 ## Control 8 5.4.1:
 ### Subtask a
+We run the command kubectl get all -o jsonpath='{range .items[?(@..secretKeyRef)]} {.kind} {.metadata.name} {"\n"}{end}' -A
+<img width="782" alt="image" src="https://user-images.githubusercontent.com/72175659/164552831-f409b764-8c06-41cd-b44b-bbf89a5248f8.png">
 
 ### Subtask b
 ### Subtask c
