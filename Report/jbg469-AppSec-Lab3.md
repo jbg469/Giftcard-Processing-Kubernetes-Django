@@ -102,6 +102,9 @@ We Create a PSP as described in the Kubernetes documentation, ensuring that the 
 ### Subtask c
 We run the command kubectl apply -f GiftcardSite/k8 and then run "kubectl get psp unrestricted -o=jsonpath='{.spec.runAsUser.rule}'". The output now shows as MustRunAsNonRoot.
 
+<img width="1263" alt="image" src="https://user-images.githubusercontent.com/72175659/164550367-b5c091f9-25a6-4839-a8b2-09e0c4f0b658.png">
+
+
 
 ## Control 7 5.2.7:
 ### Subtask a
