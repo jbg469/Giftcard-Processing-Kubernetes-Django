@@ -9,12 +9,12 @@ spec:
   supplementalGroups:
     rule: RunAsAny
   runAsUser:
-    rule: RunAsAny
+    rule: MustRunAsNonRoot
   fsGroup:
     rule: RunAsAny
   volumes:
     - "*"
   hostIPC: false
   hostPID: false
-  hostNetwork: true
-  allowPrivilegeEscalation: true
+  hostNetwork: false
+  allowPrivilegeEscalation: false
