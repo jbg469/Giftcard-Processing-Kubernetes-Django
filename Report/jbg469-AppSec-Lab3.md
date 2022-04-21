@@ -80,7 +80,14 @@ The benchmark book says the container running the allowPrivilegeEscalation flag 
 <img width="783" alt="image" src="https://user-images.githubusercontent.com/72175659/164362401-7ad727b0-df8c-4725-ae0c-64cfeb02db2b.png">
 
 ### Subtask b
+We change the allowPrivilegeEscalation field in the django-psp.yaml file to false. 
+<img width="784" alt="image" src="https://user-images.githubusercontent.com/72175659/164363268-0cb8cbfe-cccf-4202-8892-0e7223abbf61.png">
+
 ### Subtask c
+Once we apply the changes with the kubectl command, we check to see with the command "kubectl get psp unrestricted o=jsonpath='{.spec.allowPrivilegeEscalation}'" if it prints false.
+
+<img width="782" alt="image" src="https://user-images.githubusercontent.com/72175659/164363764-7333ac59-084b-4992-b8e0-f72cd9c26e7d.png">
+
 ## Control 6 5.2.6:
 ### Subtask a
 
