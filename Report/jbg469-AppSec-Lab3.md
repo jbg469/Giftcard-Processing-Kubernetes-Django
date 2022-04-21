@@ -126,7 +126,7 @@ We run the command "kubectl get all -o jsonpath='{range .items[?(@..secretKeyRef
 defined from secrets<img width="782" alt="image" src="https://user-images.githubusercontent.com/72175659/164552831-f409b764-8c06-41cd-b44b-bbf89a5248f8.png">
 
 ### Subtask b
-We rewrite application code to read secrets from mounted secret files, rather than from environment variable. 
+We rewrite application code to read secrets from mounted secret files, rather than from environment variable. Mounting secrets as volumes has the additional benefit that secret values can be updated without restarting the pod.
 <img width="785" alt="image" src="https://user-images.githubusercontent.com/72175659/164553416-effadfb7-cd3e-4e31-a301-facbbebe1448.png">
 
 ### Subtask c
