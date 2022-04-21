@@ -122,10 +122,13 @@ We create a PSP as described in the Kubernetes documentation, ensuring that the 
 
 ## Control 8 5.4.1:
 ### Subtask a
-We run the command kubectl get all -o jsonpath='{range .items[?(@..secretKeyRef)]} {.kind} {.metadata.name} {"\n"}{end}' -A
-<img width="782" alt="image" src="https://user-images.githubusercontent.com/72175659/164552831-f409b764-8c06-41cd-b44b-bbf89a5248f8.png">
+We run the command "kubectl get all -o jsonpath='{range .items[?(@..secretKeyRef)]} {.kind} {.metadata.name} {"\n"}{end}' -A". This command finds references to objects which use environment variables.
+defined from secrets<img width="782" alt="image" src="https://user-images.githubusercontent.com/72175659/164552831-f409b764-8c06-41cd-b44b-bbf89a5248f8.png">
 
 ### Subtask b
+We rewrite application code to read secrets from mounted secret files, rather than from environment variable. 
+<img width="785" alt="image" src="https://user-images.githubusercontent.com/72175659/164553416-effadfb7-cd3e-4e31-a301-facbbebe1448.png">
+
 ### Subtask c
 ## Control 9 5.7.1:
 ### Subtask a
