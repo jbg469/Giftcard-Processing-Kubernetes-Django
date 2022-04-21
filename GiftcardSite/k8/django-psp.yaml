@@ -12,6 +12,8 @@ spec:
     rule: MustRunAsNonRoot
   fsGroup:
     rule: RunAsAny
+  requiredDropCapabilities:
+    - NET_RAW
   volumes:
     - "*"
   hostIPC: false
