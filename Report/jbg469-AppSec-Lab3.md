@@ -178,6 +178,18 @@ We see in VS code when we search for "securityContext" (Ctr+F) in all the pod de
 ### Subtask c
 ## Control 20 4.2:
 ### Subtask a
+To validate this control we interact with the database pod and run
+  SELECT * FROM information_schema.SCHEMATA where SCHEMA_NAME not in ('mysql','information_schema', 'sys', 'performance_schema'); we see that in this case the example database is GiftcardSiteDB
+  <img width="619" alt="Screen Shot 2022-04-24 at 6 09 52 PM" src="https://user-images.githubusercontent.com/72175659/164998794-1bcc0a85-242d-4f85-bd4f-877ab13e9d65.png">
+<img width="620" alt="Screen Shot 2022-04-24 at 6 10 02 PM" src="https://user-images.githubusercontent.com/72175659/164998800-b62654f1-238d-4416-84b4-e73ee3722d3f.png">
+
 ### Subtask b
+
+<img width="624" alt="Screen Shot 2022-04-24 at 6 10 49 PM" src="https://user-images.githubusercontent.com/72175659/164998817-c6d95f4c-d571-4036-b72e-4eb59b1e1008.png">
+
+Dropping the GiftcardSiteDB file would make registering, logging in, and out non-functional so we can’t drop it, we get a 500 Server error. Therefore there must be a flaw in the security review there are no test databases present. There is no remediation for this control. 
 ### Subtask c
+There is no resolution, no extra db’s to drop. 
+
+# Part 2
 
