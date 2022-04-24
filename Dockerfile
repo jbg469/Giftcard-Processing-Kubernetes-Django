@@ -40,6 +40,7 @@ RUN mkdir -p /vol/web/static
 
 #RUN chown -R django-app:django-app /GiftcardSite
 
-# Todo change to user 'django-app'
+#Todo change to user 'django-app'
+
 
 CMD ["entrypoint.sh"]
