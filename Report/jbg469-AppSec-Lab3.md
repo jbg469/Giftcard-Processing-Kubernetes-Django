@@ -170,8 +170,26 @@ We see in VS code when we search for "securityContext" (Ctr+F) in all the pod de
 ### Subtask c
 ## Control 18 2.7:
 ### Subtask a
+We run 
+Password lifetime is set to 0, which means that the password will not expire
+SELECT VARIABLE_NAME, VARIABLE_VALUE
+FROM performance_schema.global_variables where VARIABLE_NAME like 'default_password_lifetime';
+Then running mysql> SELECT user, host, password_lifetime from mysql.user where password_lifetime = 0 OR password_lifetime >= 365;
+Returns an Empty set. Which means we just change one password expiry date. 
+
+<img width="1055" alt="Screen Shot 2022-04-24 at 7 44 16 PM" src="https://user-images.githubusercontent.com/72175659/165001649-7fb6dd22-8437-46bd-b37e-480a9a338e20.png">
+
 ### Subtask b
+we run
+set persist default_password_lifetime = 365;
+
+<img width="988" alt="Screen Shot 2022-04-24 at 7 50 27 PM" src="https://user-images.githubusercontent.com/72175659/165001867-ffb628ec-e4dc-45cc-bd15-485ebf825b28.png">
+
 ### Subtask c
+<img width="1054" alt="Screen Shot 2022-04-24 at 7 51 40 PM" src="https://user-images.githubusercontent.com/72175659/165001884-6325a314-6df2-4722-8e9c-0b03dc8192aa.png">
+
+Now the password expires in one year as opposed to never. Nice
+
 ## Control 19 2.9:
 ### Subtask a
 <img width="1277" alt="Screen Shot 2022-04-24 at 6 56 28 PM" src="https://user-images.githubusercontent.com/72175659/165000217-e4367058-57cc-443d-a838-4183d21f7b6a.png">
