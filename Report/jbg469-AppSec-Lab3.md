@@ -174,12 +174,31 @@ We see in VS code when we search for "securityContext" (Ctr+F) in all the pod de
 ### Subtask c
 ## Control 19 2.9:
 ### Subtask a
+<img width="1277" alt="Screen Shot 2022-04-24 at 6 56 28 PM" src="https://user-images.githubusercontent.com/72175659/165000217-e4367058-57cc-443d-a838-4183d21f7b6a.png">
+We get 0's after running  
+SELECT VARIABLE_NAME, VARIABLE_VALUE
+FROM performance_schema.global_variables where VARIABLE_NAME in ('password_history', 'password_reuse_interval');
+
+which indicates that NO policy is defined for the associated variable.
+The password_history variable indicates the number of subsequent account password changes that must occur before the password can be reused. 
+
 ### Subtask b
+Set a global policy that passwords may not be reused for a minimum of five password changes:
+SET PERSIST password_history = 5;
+Set a global policy that passwords have a lifetime to approximately one year (in days)
+SET PERSIST password_reuse_interval = 365;
+<img width="972" alt="Screen Shot 2022-04-24 at 7 00 11 PM" src="https://user-images.githubusercontent.com/72175659/165000301-cf563b07-8d51-48e8-9a26-5aec79ffd552.png">
+
 ### Subtask c
+
+<img width="1168" alt="Screen Shot 2022-04-24 at 7 01 45 PM" src="https://user-images.githubusercontent.com/72175659/165000341-9afaadb8-c4a5-4c9e-98e3-c53ba1692ad6.png">
+
+resolved per textbook specifications.
+
 ## Control 20 4.2:
 ### Subtask a
 To validate this control we interact with the database pod and run
-  SELECT * FROM information_schema.SCHEMATA where SCHEMA_NAME not in ('mysql','information_schema', 'sys', 'performance_schema'); we see that in this case the example database is GiftcardSiteDB
+  SELECT * FROM information_schema.SCHEMATA where SCHEMA_NAME not in ('mysql','information_schema', 'sys', 'performance_schema'); we see that in this case the only database returned from the benchmark book command is GiftcardSiteDB. This is a false positive.
   <img width="619" alt="Screen Shot 2022-04-24 at 6 09 52 PM" src="https://user-images.githubusercontent.com/72175659/164998794-1bcc0a85-242d-4f85-bd4f-877ab13e9d65.png">
 <img width="620" alt="Screen Shot 2022-04-24 at 6 10 02 PM" src="https://user-images.githubusercontent.com/72175659/164998800-b62654f1-238d-4416-84b4-e73ee3722d3f.png">
 
@@ -187,7 +206,8 @@ To validate this control we interact with the database pod and run
 
 <img width="624" alt="Screen Shot 2022-04-24 at 6 10 49 PM" src="https://user-images.githubusercontent.com/72175659/164998817-c6d95f4c-d571-4036-b72e-4eb59b1e1008.png">
 
-Dropping the GiftcardSiteDB file would make registering, logging in, and out non-functional so we can’t drop it, we get a 500 Server error. Therefore there must be a flaw in the security review there are no test databases present. There is no remediation for this control. 
+Dropping the GiftcardSiteDB file would make registering, logging in, and out non-functional so we can’t drop it. If we do we get a 500 Server error. Therefore there must be a flaw in the security review there are no test databases present. There is no remediation for this control. 
+
 ### Subtask c
 There is no resolution, no extra db’s to drop. 
 
