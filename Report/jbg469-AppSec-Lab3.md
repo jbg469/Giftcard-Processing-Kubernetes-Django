@@ -166,8 +166,72 @@ We see in VS code when we search for "securityContext" (Ctr+F) in all the pod de
 ### Subtask c
 ## Control 17 2.3:
 ### Subtask a
+We will run a couple of commands to audit this control first we do kubectl get pods and kubectl get services. This shows us each pod is built for a specific purpose each with it's own port and IP adress, Custom applications accommodate database connections over the network rather than on the use (e.g., using TCP/IP connections).
+
+<img width="1269" alt="Screen Shot 2022-04-24 at 8 57 46 PM" src="https://user-images.githubusercontent.com/72175659/165004749-471f4d23-237c-46c2-8b6c-01fb55dbe176.png">
+
+Auditing the DB .yaml files (in k8 and k8s) and Docker file we dont find any extraneous users, roles, or services set to be deployed. Just users, roles, and services specific to MySQL use
+<img width="1260" alt="Screen Shot 2022-04-24 at 9 14 15 PM" src="https://user-images.githubusercontent.com/72175659/165005596-9cb641f9-3ac7-410d-9e60-3ef95378a186.png">
+
+Reviewing the log for the pod we see no extraneous users, roles, or services related to MySQL use.
+```
+nyuappsec@ubuntu:~/AppSec3$ kubectl logs mysql-container-5545ddcfd4-2hkc8
+2022-04-24 21:34:40+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.28-1debian10 started.
+2022-04-24 21:34:40+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+2022-04-24 21:34:40+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.28-1debian10 started.
+2022-04-24 21:34:40+00:00 [Note] [Entrypoint]: Initializing database files
+2022-04-24T21:34:40.210727Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.0.28) initializing of server in progress as process 45
+2022-04-24T21:34:40.217081Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2022-04-24T21:34:40.516152Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2022-04-24T21:34:41.367101Z 6 [Warning] [MY-010453] [Server] root@localhost is created with an empty password ! Please consider switching off the --initialize-insecure option.
+2022-04-24 21:34:43+00:00 [Note] [Entrypoint]: Database files initialized
+2022-04-24 21:34:43+00:00 [Note] [Entrypoint]: Starting temporary server
+2022-04-24T21:34:43.521173Z 0 [Warning] [MY-010099] [Server] Insecure configuration for --secure-file-priv: Data directory is accessible through --secure-file-priv. Consider choosing a different directory.
+2022-04-24T21:34:43.521180Z 0 [Warning] [MY-010101] [Server] Insecure configuration for --secure-file-priv: Location is accessible to all OS users. Consider choosing a different directory.
+2022-04-24T21:34:43.521226Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.28) starting as process 94
+2022-04-24T21:34:43.532594Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2022-04-24T21:34:43.652434Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2022-04-24T21:34:43.799001Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2022-04-24T21:34:43.799032Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2022-04-24T21:34:43.799598Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+2022-04-24T21:34:43.814166Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Socket: /var/run/mysqld/mysqlx.sock
+2022-04-24T21:34:43.814235Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.28'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL.
+2022-04-24 21:34:43+00:00 [Note] [Entrypoint]: Temporary server started.
+Warning: Unable to load '/usr/share/zoneinfo/iso3166.tab' as time zone. Skipping it.
+Warning: Unable to load '/usr/share/zoneinfo/leap-seconds.list' as time zone. Skipping it.
+Warning: Unable to load '/usr/share/zoneinfo/zone.tab' as time zone. Skipping it.
+Warning: Unable to load '/usr/share/zoneinfo/zone1970.tab' as time zone. Skipping it.
+2022-04-24 21:34:45+00:00 [Note] [Entrypoint]: Creating database GiftcardSiteDB
+
+2022-04-24 21:34:45+00:00 [Note] [Entrypoint]: /entrypoint.sh: running /docker-entrypoint-initdb.d/setup.sql
+
+
+2022-04-24 21:34:45+00:00 [Note] [Entrypoint]: Stopping temporary server
+2022-04-24T21:34:45.872776Z 12 [System] [MY-013172] [Server] Received SHUTDOWN from user root. Shutting down mysqld (Version: 8.0.28).
+2022-04-24T21:34:47.331945Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.28)  MySQL Community Server - GPL.
+2022-04-24 21:34:47+00:00 [Note] [Entrypoint]: Temporary server stopped
+
+2022-04-24 21:34:47+00:00 [Note] [Entrypoint]: MySQL init process done. Ready for start up.
+
+2022-04-24T21:34:48.106428Z 0 [Warning] [MY-010099] [Server] Insecure configuration for --secure-file-priv: Data directory is accessible through --secure-file-priv. Consider choosing a different directory.
+2022-04-24T21:34:48.106435Z 0 [Warning] [MY-010101] [Server] Insecure configuration for --secure-file-priv: Location is accessible to all OS users. Consider choosing a different directory.
+2022-04-24T21:34:48.106496Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.28) starting as process 1
+2022-04-24T21:34:48.115578Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2022-04-24T21:34:48.236708Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2022-04-24T21:34:48.348164Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2022-04-24T21:34:48.348195Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2022-04-24T21:34:48.349083Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+2022-04-24T21:34:48.362896Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.28'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
+2022-04-24T21:34:48.362900Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+nyuappsec@ubuntu:~/AppSec3$ 
+```
+
+
+
 ### Subtask b
+There is no remediation 
 ### Subtask c
+There is no remediation therefore no resolution. We audited the 
 ## Control 18 2.7:
 ### Subtask a
 We run 
@@ -180,7 +244,7 @@ Returns an Empty set. Which means we just change one password expiry date.
 <img width="1055" alt="Screen Shot 2022-04-24 at 7 44 16 PM" src="https://user-images.githubusercontent.com/72175659/165001649-7fb6dd22-8437-46bd-b37e-480a9a338e20.png">
 
 ### Subtask b
-we run
+we run 
 set persist default_password_lifetime = 365;
 
 <img width="988" alt="Screen Shot 2022-04-24 at 7 50 27 PM" src="https://user-images.githubusercontent.com/72175659/165001867-ffb628ec-e4dc-45cc-bd15-485ebf825b28.png">
