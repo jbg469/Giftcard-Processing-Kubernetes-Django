@@ -162,8 +162,22 @@ We see in VS code when we search for "securityContext" (Ctr+F) in all the pod de
 ### Subtask c
 ## Oracle Control 16 1.2:
 ### Subtask a
+We execute ```ps -ef | egrep '^mysql.*$'``` inside a bash shell of the pod with the commands in the FAQ.
+
+```kubectl exec --stdin --tty mysql-container-5545ddcfd4-2hkc8 -- bash```
+
+We return 
+```
+mysql          1       0  0 Apr24 ?        00:01:53 mysqld --secure-file-priv=/
+```
+To fail we must return no lines but we return the expected user 'mysql' so this is indeed a pass. 
+
+<img width="1272" alt="Screen Shot 2022-04-24 at 10 10 16 PM" src="https://user-images.githubusercontent.com/72175659/165009385-59c5a0bc-35fb-4c8d-b8f7-cfb222bfe42f.png">
+
 ### Subtask b
+We pass the security audit so there is no remediation. 
 ### Subtask c
+No remediation therefore no resolution. Good
 ## Control 17 2.3:
 ### Subtask a
 We will run a couple of commands to audit this control first we do kubectl get pods and kubectl get services. This shows us each pod is built for a specific purpose each with it's own port and IP adress, Custom applications accommodate database connections over the network rather than on the use (e.g., using TCP/IP connections).
@@ -283,7 +297,7 @@ Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists fo
 Events:                      <none>
   
 ```
-finally we get the process id of our sql container with docker ps then do docker top <sql pod pid>
+finally we get the process id of our sql container with docker ps then do docker top <sql pod pid>. This benchmark is a pass. 
 <img width="1270" alt="Screen Shot 2022-04-24 at 9 48 38 PM" src="https://user-images.githubusercontent.com/72175659/165007795-d346d039-ecad-4e9b-8069-96bae58131f6.png">
 We see nothing out of the ordinary. Nice
 ### Subtask b
