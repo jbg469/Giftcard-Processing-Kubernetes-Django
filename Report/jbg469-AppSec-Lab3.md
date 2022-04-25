@@ -173,7 +173,8 @@ We will run a couple of commands to audit this control first we do kubectl get p
 Auditing the DB .yaml files (in k8 and k8s) and Docker file we dont find any extraneous users, roles, or services set to be deployed. Just users, roles, and services specific to MySQL use
 <img width="1260" alt="Screen Shot 2022-04-24 at 9 14 15 PM" src="https://user-images.githubusercontent.com/72175659/165005596-9cb641f9-3ac7-410d-9e60-3ef95378a186.png">
 
-Reviewing the log for the pod we see no extraneous users, roles, or services related to MySQL use.
+Reviewing the log for the pod we see no extraneous users, roles, or services related to MySQL use. When we examine the output kubectl describe pod <sqlpod> we also see no extraneous entities related to SQL use.
+LOG
 ```
 nyuappsec@ubuntu:~/AppSec3$ kubectl logs mysql-container-5545ddcfd4-2hkc8
 2022-04-24 21:34:40+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.28-1debian10 started.
@@ -225,9 +226,66 @@ Warning: Unable to load '/usr/share/zoneinfo/zone1970.tab' as time zone. Skippin
 2022-04-24T21:34:48.362900Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
 nyuappsec@ubuntu:~/AppSec3$ 
 ```
-
-
-
+DESCRIBE
+```
+  kubectl describe pod mysql-container-5545ddcfd4-2hkc8
+Name:         mysql-container-5545ddcfd4-2hkc8
+Namespace:    default
+Priority:     0
+Node:         minikube/192.168.49.2
+Start Time:   Sun, 24 Apr 2022 14:34:38 -0700
+Labels:       app=mysql-container
+              pod-template-hash=5545ddcfd4
+              tier=backend
+Annotations:  <none>
+Status:       Running
+IP:           172.17.0.4
+IPs:
+  IP:           172.17.0.4
+Controlled By:  ReplicaSet/mysql-container-5545ddcfd4
+Containers:
+  mysql-container:
+    Container ID:   docker://b6beb234210db10564c2b8cc192d6dc61ff78cb9674a176c7f4761f0028ede4f
+    Image:          nyuappsec/assign3-db:v0
+    Image ID:       docker://sha256:4bca394a57cabeda359c25d6fdb66a776e867d1f74c5fd910771b082e9809298
+    Port:           3306/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Sun, 24 Apr 2022 14:34:40 -0700
+    Ready:          True
+    Restart Count:  0
+    Environment:
+      MYSQL_DATABASE:  GiftcardSiteDB
+    Mounts:
+      /var/lib/mysql from mysql-volume-mount (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-s7984 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  mysql-volume-mount:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  mysql-pvc
+    ReadOnly:   false
+  kube-api-access-s7984:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:                      <none>
+  
+```
+finally we get the process id of our sql container with docker ps then do docker top <sql pod pid>
+<img width="1270" alt="Screen Shot 2022-04-24 at 9 48 38 PM" src="https://user-images.githubusercontent.com/72175659/165007795-d346d039-ecad-4e9b-8069-96bae58131f6.png">
+We see nothing out of the ordinary. Nice
 ### Subtask b
 There is no remediation 
 ### Subtask c
