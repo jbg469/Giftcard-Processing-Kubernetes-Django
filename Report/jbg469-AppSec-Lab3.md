@@ -143,6 +143,11 @@ I have also referenced SECRET_KEY inside a secrets file I made for it. I took th
 
 <img width="1358" alt="image" src="https://user-images.githubusercontent.com/72175659/165240015-34abdbb6-4223-4ccd-9db8-933d35bcdbb1.png">
 
+In the db/k8 file we do the same thing and make a secrets file for the MYSQL_ROOT_PASSWORD. I have changed the name that I had for django-deploy.yaml file which was django-root-secret to now mysql-secrets but this encoded value has remained the same "mysql_root_password: dGhpc2lzYXRlc3R0aGluZy4=". 
+
+<img width="1360" alt="image" src="https://user-images.githubusercontent.com/72175659/165241583-9da6ca29-755c-4f8a-a5f6-db145d41b9c3.png">
+
+
 ### Subtask c
 ## Control 9 5.7.1:
 ### Subtask a
