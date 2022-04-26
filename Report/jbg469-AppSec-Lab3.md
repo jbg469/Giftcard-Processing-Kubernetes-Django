@@ -128,7 +128,7 @@ defined from secrets<img width="782" alt="image" src="https://user-images.github
 ### Subtask b
 We rewrite application code to read secrets from mounted secret files, rather than from environment variable. Mounting secrets as volumes has the additional benefit that secret values can be updated without restarting the pod.
 <img width="785" alt="image" src="https://user-images.githubusercontent.com/72175659/164553416-effadfb7-cd3e-4e31-a301-facbbebe1448.png">
-
+<img width="1358" alt="image" src="https://user-images.githubusercontent.com/72175659/165227592-a1c56065-78f1-45c1-9e69-e58c3596c030.png">
 ### Subtask c
 ## Control 9 5.7.1:
 ### Subtask a
