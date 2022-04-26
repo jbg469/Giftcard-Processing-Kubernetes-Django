@@ -154,8 +154,8 @@ I have referenced to the name mysql-secrets that was also in the secrets file I 
 <img width="1357" alt="image" src="https://user-images.githubusercontent.com/72175659/165242462-92005ce6-dc86-4629-8a53-6c5acf6706d8.png">
 
 ### Subtask c
+<img width="1357" alt="image" src="https://user-images.githubusercontent.com/72175659/165404475-bdb25ef3-f335-42f0-959a-8b4329e2c91d.png">
 
-<img width="1360" alt="image" src="https://user-images.githubusercontent.com/72175659/165395929-9e05687e-a7bd-4bfe-9776-039c24ebabe7.png">
 
 ## Control 9 5.7.1:
 ### Subtask a
