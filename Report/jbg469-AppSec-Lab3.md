@@ -147,6 +147,9 @@ In the db/k8 file we do the same thing and make a secrets file for the MYSQL_ROO
 
 <img width="1360" alt="image" src="https://user-images.githubusercontent.com/72175659/165241583-9da6ca29-755c-4f8a-a5f6-db145d41b9c3.png">
 
+I have referenced to the name mysql-secrets that was also in the secrets file I have made in the secrets file (in the previous image). The key is the MYSQL_ROOT_PASSWORD that has been encoded in the django secret's file.
+
+<img width="1357" alt="image" src="https://user-images.githubusercontent.com/72175659/165242462-92005ce6-dc86-4629-8a53-6c5acf6706d8.png">
 
 ### Subtask c
 ## Control 9 5.7.1:
