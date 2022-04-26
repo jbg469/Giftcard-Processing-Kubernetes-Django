@@ -132,14 +132,16 @@ This is the secrets file for the MYSQL_ROOT_PASSWORD in the django-deploy.yaml f
 <img width="1357" alt="image" src="https://user-images.githubusercontent.com/72175659/165236532-58e69265-58f1-4dd4-8f12-1ff727287ba1.png">
 
 
-I deleted the password value: thisisatestthing. for the MYSQL_ROOT_PASSWORD and then referenced it to the name that is in the secrets files that I have made. I also did the same for SECRET_KEY that was in the settings.py file.
+I deleted the password value: thisisatestthing. for the MYSQL_ROOT_PASSWORD and then referenced it to the name that is in the secrets file in Giftcardsite/k8 that I have made. I also did the same for SECRET_KEY that was in the settings.py file.
 <img width="1358" alt="image" src="https://user-images.githubusercontent.com/72175659/165227592-a1c56065-78f1-45c1-9e69-e58c3596c030.png">
 
 
 I have commented out the SECRET_KEY inside the settings.py file and used the python command SECRET_KEY = os.environ.get('SECRET_KEY'). We are mounting by using this command.
 <img width="1360" alt="image" src="https://user-images.githubusercontent.com/72175659/165239652-69ed0afa-6ae7-4805-adf4-db52e79c3c28.png">
 
-I have also referenced SECRET_KEY inside a secrets file I made for it. I took the original SECRET_KEY value and encoded it using command "echo -n "kmgysa#fz+9(z1*=c0ydrjizk*7sthm2ga1z4=^61$cxcq8b$l" | base64".
+I have also referenced SECRET_KEY inside a secrets file I made for it. I took the original SECRET_KEY value and encoded it using command "echo -n "kmgysa#fz+9(z1*=c0ydrjizk*7sthm2ga1z4=^61$cxcq8b$l" | base64". 
+
+The python command SECRET_KEY = os.environ.get('SECRET_KEY') is going to get the SECRET_KEY value that is encoded from the secrets file.
 
 <img width="1358" alt="image" src="https://user-images.githubusercontent.com/72175659/165240015-34abdbb6-4223-4ccd-9db8-933d35bcdbb1.png">
 
