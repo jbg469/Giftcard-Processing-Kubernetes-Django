@@ -159,7 +159,12 @@ I have referenced to the name mysql-secrets that was also in the secrets file I 
 
 ## Control 9 5.7.1:
 ### Subtask a
-We run the command "kubectl get namespaces". This command outputs the namespaces that are currently created in the cluster.
+We run the command "kubectl get namespaces". This command outputs the namespaces that are currently created in the cluster. By default, Kubernetes starts with two initial namespaces:
+1. default - The default namespace for objects with no other namespace
+2. kube-system - The namespace for objects created by the Kubernetes system
+3. kube-node-lease - Namespace used for node heartbeats
+4. kube-public - Namespace used for public information in a cluster
+
 <img width="783" alt="image" src="https://user-images.githubusercontent.com/72175659/165404993-bc2121da-05a0-44fe-a195-42b9009df276.png">
 
 ### Subtask b
