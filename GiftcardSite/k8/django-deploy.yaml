@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  #namespace: development
+  namespace: jbg469
   name: assignment3-django-deploy
   labels:
     app: assignment3-django-deploy
@@ -15,6 +15,9 @@ spec:
       labels:
         pod: assignment3-django-deploy
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: assignment3-django-deploy
           image: nyuappsec/assign3:v0

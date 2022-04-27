@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  #namespace: development
+  namespace: jbg469
   name: mysql-container
 spec:
   replicas: 1
@@ -14,9 +14,9 @@ spec:
         app: mysql-container
         tier: backend
     spec:
-      #securityContext:
-        #seccompProfile:
-          #type: RuntimeDefault
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: mysql-container
           image: nyuappsec/assign3-db:v0

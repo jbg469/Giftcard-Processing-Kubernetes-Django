@@ -1,10 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  #namespace: development
+  namespace: jbg469
   name: proxy
   labels:
     app: proxy
+spec:
+ securityContext:
+  seccompProfile:
+   type: RuntimeDefault
 spec:
   replicas: 1
   selector:
@@ -15,9 +19,6 @@ spec:
       labels:
         pod: proxy
     spec:
-       #securityContext:
-         #seccompProfile:
-          # type: RuntimeDefault
       containers:
         - name: proxy
           image: nyuappsec/assign3-proxy:v0
