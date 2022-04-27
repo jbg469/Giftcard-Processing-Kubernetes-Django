@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  #namespace: development
   name: assignment3-django-deploy
   labels:
     app: assignment3-django-deploy
@@ -20,18 +21,19 @@ spec:
           ports:
             - containerPort: 8000
           env:
-     #       - name: MYSQL_ROOT_PASSWORD
-      #        value: thisisatestthing. 
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: db-root-secret
-                  key: MYSQL_ROOT_PASSWORD
+                    name: django-root-secret
+                    key: mysql_root_password
+
             - name: SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  name: settings-secret
-                  key: SECRET_KEY         
+                    name: settings-secret
+                    key: SECRET_KEY
+
+
             - name: MYSQL_DB
               value: GiftcardSiteDB
 
@@ -60,22 +62,11 @@ spec:
             - name: static-data-volume-mount
               mountPath: /vol/static
 
-            - name: admin-pass-volume-mount
-              mountPath: /etc/adminpass/
-
       volumes:
         - name: mysql-volume-mount
           persistentVolumeClaim:
             claimName: mysql-pvc
-          
 
         - name: static-data-volume-mount
           persistentVolumeClaim:
             claimName: static-data-pvc
-
-        - name: admin-pass-volume-mount
-          secret:
-            secretName: admin-login-secrets
-
-          
-

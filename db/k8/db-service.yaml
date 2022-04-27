@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  namespace: development 
+  #namespace: development 
   name: mysql-service
 spec:
   selector:

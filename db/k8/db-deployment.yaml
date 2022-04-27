@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  #namespace: development
   name: mysql-container
 spec:
   replicas: 1
@@ -13,6 +14,9 @@ spec:
         app: mysql-container
         tier: backend
     spec:
+      #securityContext:
+        #seccompProfile:
+          #type: RuntimeDefault
       containers:
         - name: mysql-container
           image: nyuappsec/assign3-db:v0
@@ -22,8 +26,8 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: db-root-secret
-                  key: MYSQL_ROOT_PASSWORD
+                  name: mysql-secrets
+                  key: mysql_root_password
           ports:
             - containerPort: 3306
           volumeMounts:

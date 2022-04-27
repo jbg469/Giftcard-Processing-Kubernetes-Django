@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  #namespace: development
   name: proxy
   labels:
     app: proxy
@@ -14,6 +15,9 @@ spec:
       labels:
         pod: proxy
     spec:
+       #securityContext:
+         #seccompProfile:
+          # type: RuntimeDefault
       containers:
         - name: proxy
           image: nyuappsec/assign3-proxy:v0

@@ -1,6 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
+  #namespace: development
   name: assignment3-django-service
 spec:
   selector:
