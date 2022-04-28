@@ -1,7 +1,7 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  namespace: jbg469
+  #namespace: jbg469
   name: static-data-pv
   labels:
     type: local
@@ -13,3 +13,4 @@ spec:
     - ReadWriteMany
   hostPath:
     path: /vol/static
+kub

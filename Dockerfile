@@ -6,7 +6,7 @@ ENV PATH="/scripts:${PATH}"
 COPY requirements.txt /requirements.txt
 
 #### AA: There seems to be a lot of packages here
-RUN apk add openjdk11
+#RUN apk add openjdk11
 RUN apk add --no-cache mono --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing && \
     apk add --no-cache --virtual=.build-dependencies ca-certificates && \
     cert-sync /etc/ssl/certs/ca-certificates.crt && \
@@ -21,11 +21,13 @@ RUN apk del .tmp
 
 RUN mkdir /GiftcardSite
 
-ADD ./GiftcardSite /GiftcardSite
+COPY ./GiftcardSite /GiftcardSite
+#ADD ./GiftcardSite /GiftcardSite
 
 WORKDIR /GiftcardSite
 
-ADD ./scripts /scripts
+COPY ./scripts /scripts
+#ADD ./scripts /scripts
 
 RUN chmod +x /scripts/*
 

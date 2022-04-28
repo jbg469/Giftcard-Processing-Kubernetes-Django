@@ -1,7 +1,7 @@
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  namespace: jbg469
+  #namespace: jbg469
   name: unrestricted
 spec:
   privileged: false

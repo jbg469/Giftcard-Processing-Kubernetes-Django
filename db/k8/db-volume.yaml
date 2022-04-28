@@ -1,7 +1,7 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  namespace: jbg469
+  #namespace: jbg469
   name: mysql-pv
   labels:
     type: local

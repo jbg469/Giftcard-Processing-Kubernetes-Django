@@ -11,8 +11,9 @@ docker build -t nyuappsec/assign3-db:v0 db/
 
 #kubectl create namespace development 
 
-
+kubectl apply -f Benchmarks/namespace.json
 kubectl apply -f db/k8
 kubectl apply -f GiftcardSite/k8
 kubectl apply -f proxy/k8
+
 
