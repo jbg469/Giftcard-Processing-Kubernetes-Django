@@ -168,11 +168,43 @@ We run the command "kubectl get namespaces". This command outputs the namespaces
 <img width="783" alt="image" src="https://user-images.githubusercontent.com/72175659/165404993-bc2121da-05a0-44fe-a195-42b9009df276.png">
 
 ### Subtask b
+We created a namespace by making a file with the kind:namespace. I named my namespace as jbg469. I then ran the command “kubectl create -f Benchmarks/namespace.yaml”. 
+<img width="788" alt="image" src="https://user-images.githubusercontent.com/72175659/165650389-ba63b3bc-3704-44a8-9472-57d8426011b8.png">
+
+We inserted the namespace: jbg469 in every pod’s yaml file under metadata. Below is an example. 
+<img width="778" alt="image" src="https://user-images.githubusercontent.com/72175659/165650543-cd284560-6aa5-41b2-b303-1089167c5bef.png">
+
+
 ### Subtask c
+We run the commands “ kubectl apply -f db/k8
+kubectl apply -f GiftcardSite/k8
+kubectl apply -f proxy/k8” to show that it has been applied to all the yaml files that we have added namespace: jbg469 to. Then when we check our namespaces we see the new one that we had made.
+
+<img width="778" alt="image" src="https://user-images.githubusercontent.com/72175659/165650782-b0f64ac1-4e49-4bbc-aea7-14bd8fb55e99.png">
+
+
 ## Control 10 5.7.2:
 ### Subtask a
-We see in VS code when we search for "securityContext" (Ctr+F) in all the pod definition files it doesn't exist, therefore confirming the benchmark security review that no seccomp profile is set in pod definitions.
+Seccomp (secure computing mode) is used to restrict the set of system calls applications can make, allowing cluster administrators greater control over the security of workloads running in the cluster. Kubernetes disables seccomp profiles by default for historical reasons. So we know by default that Kubernetes disables seccomp profiles and we will need to add them into the deployment files for all the pods.
 ### Subtask b
+
+We add these three lines to all the deployment files for each pod underneath where it says spec so it will look like the following.
+spec:
+    securityContext:
+        seccompProfile:
+            type: RuntimeDefault
+            
+<img width="785" alt="image" src="https://user-images.githubusercontent.com/72175659/165650981-4f87a028-92ac-42e2-ad45-d586c1842d00.png">
+<img width="782" alt="image" src="https://user-images.githubusercontent.com/72175659/165651096-98450dba-8fdb-4b0e-adae-18bb8dc7b719.png">
+<img width="780" alt="image" src="https://user-images.githubusercontent.com/72175659/165651143-a8786a1a-5667-497e-8572-75c5ceca61fc.png">
+
+### Subtask c
+We applied for each pod by running the commands 
+“kubectl apply -f db/k8
+kubectl apply -f GiftcardSite/k8
+kubectl apply -f proxy/k8”
+
+
 ### Subtask c
 ## Docker Control 11 4.1:
 ### Subtask a
