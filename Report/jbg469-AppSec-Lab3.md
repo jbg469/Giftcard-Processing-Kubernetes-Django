@@ -258,8 +258,11 @@ In the Dockerfiles for the image that we have, we should verify that there are n
 ### Subtask b
 We should use COPY rather than ADD instructions in Dockerfiles so we change all the COPY to ADD.
 <img width="1014" alt="image" src="https://user-images.githubusercontent.com/72175659/165654121-b44e0303-ffef-4602-af51-9f2c43fafc23.png">
+<img width="1087" alt="image" src="https://user-images.githubusercontent.com/72175659/165683704-baacc9e2-53f2-4c29-9b4a-a3efb63c2513.png">
+
 The COPY instruction simply copies files from the local host machine to the container file system. The ADD instruction could potentially retrieve files from remote URLs and perform operations such as unpacking them. The ADD instruction therefore introduces security risks. For example, malicious files may be directly accessed from URLs without scanning, or there may be vulnerabilities associated with decompressing them.
 ### Subtask c
+
 
 ## Control 15 4.10:
 ### Subtask a
