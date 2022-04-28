@@ -245,6 +245,7 @@ We checked the docker history for nyuappsec/assign3, nyuappsec-db and nyuappsec-
 ### Subtask b
 Each dockerfile is built off a high trust base image major images like Ubuntu, Debian, spline, MySQL, etc are trusted. If you build off some random image built two years ago then it is not so much trusted. Thus, we do not need a remediation for these images.
 ### Subtask c
+    
 ## Control 13 4.3:
 ### Subtask a
 
