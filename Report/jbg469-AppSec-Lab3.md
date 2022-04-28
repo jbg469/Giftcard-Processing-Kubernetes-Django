@@ -145,10 +145,6 @@ The python command SECRET_KEY = os.environ.get('SECRET_KEY') is going to get the
 
 <img width="1358" alt="image" src="https://user-images.githubusercontent.com/72175659/165240015-34abdbb6-4223-4ccd-9db8-933d35bcdbb1.png">
 
-In the db/k8 file we do the same thing and make a secrets file for the MYSQL_ROOT_PASSWORD. I have changed the name that I had for django-deploy.yaml file which was django-root-secret to now mysql-secrets but this encoded value has remained the same "mysql_root_password: dGhpc2lzYXRlc3R0aGluZy4=". 
-
-<img width="1360" alt="image" src="https://user-images.githubusercontent.com/72175659/165241583-9da6ca29-755c-4f8a-a5f6-db145d41b9c3.png">
-
 I have referenced to the name mysql-secrets that was also in the secrets file I have made in the secrets file (in the previous image). The key is the MYSQL_ROOT_PASSWORD that has been encoded in the django secret's file.
 
 <img width="1357" alt="image" src="https://user-images.githubusercontent.com/72175659/165242462-92005ce6-dc86-4629-8a53-6c5acf6706d8.png">
@@ -250,7 +246,12 @@ Each dockerfile is built off a high trust base image major images like Ubuntu, D
 ### Subtask a
 
 ### Subtask b
+We delete the "RUN apk add openjdk11" package 
+<img width="1089" alt="image" src="https://user-images.githubusercontent.com/72175659/165700889-58bf921f-e2e0-4b6d-bbe9-dfb76be6e767.png">
+
 ### Subtask c
+<img width="1093" alt="image" src="https://user-images.githubusercontent.com/72175659/165700727-abe8f687-e8db-4489-ab8b-695d653c902e.png">
+
 ## Control 14 4.9:
 ### Subtask a
 We run the command "docker images"
@@ -260,18 +261,28 @@ In the Dockerfiles for the image that we have, we should verify that there are n
 We should use COPY rather than ADD instructions in Dockerfiles so we change all the COPY to ADD.
 <img width="1014" alt="image" src="https://user-images.githubusercontent.com/72175659/165654121-b44e0303-ffef-4602-af51-9f2c43fafc23.png">
 <img width="1087" alt="image" src="https://user-images.githubusercontent.com/72175659/165683704-baacc9e2-53f2-4c29-9b4a-a3efb63c2513.png">
-
 The COPY instruction simply copies files from the local host machine to the container file system. The ADD instruction could potentially retrieve files from remote URLs and perform operations such as unpacking them. The ADD instruction therefore introduces security risks. For example, malicious files may be directly accessed from URLs without scanning, or there may be vulnerabilities associated with decompressing them.
+    
 ### Subtask c
+We were able to apply the changes and log into the gift card site. 
+<img width="1086" alt="image" src="https://user-images.githubusercontent.com/72175659/165691968-d45ce60c-86d2-479a-a3e3-4b2fc98cc63e.png">
 
 
 ## Control 15 4.10:
 ### Subtask a
+We verify that there are no secrets for the dockerfile in the images that we have access for. In the dockerfile for db/Dockerfile, we comment out the secret. 
+<img width="1091" alt="image" src="https://user-images.githubusercontent.com/72175659/165690417-cfbc86bd-b3f6-44da-aed6-00dd75a8cd62.png">
+
 ### Subtask b
 We delete the environment variable in the docker file.
-<img width="815" alt="image" src="https://user-images.githubusercontent.com/72175659/165688387-6efadba8-537d-4556-b9fa-a6b8b92a97c5.png">
+<img width="1089" alt="image" src="https://user-images.githubusercontent.com/72175659/165690758-28e6e994-abee-47b7-bbd1-83c7e0ab5991.png">
+We make a secrets file and ensure that the MYSQL_ROOT_PASSWORD value is encoded as "mysql_root_password: dGhpc2lzYXRlc3R0aGluZy4=".
+<img width="1087" alt="image" src="https://user-images.githubusercontent.com/72175659/165693094-56563cc4-28c0-4ffe-9f34-819b9f5a732c.png">
+
 
 ### Subtask c
+
+ 
 ## Oracle Control 16 1.2:
 ### Subtask a
 We execute ```ps -ef | egrep '^mysql.*$'``` inside a bash shell of the pod with the commands in the FAQ.
