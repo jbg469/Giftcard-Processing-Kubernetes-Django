@@ -229,14 +229,25 @@ docker build -t nyuappsec/assign3-db:v0 db/”
 
 
 ### Subtask c
+We should only have one output as 0 to show that there is a root and it has to be there.
 
+<img width="780" alt="image" src="https://user-images.githubusercontent.com/72175659/165652027-ec3756e6-28f9-4b8f-9c61-a06cd60137fe.png">
 
 ## Control 12 4.2:
 ### Subtask a
+There is no guarantee that these images are safe and do not contain security vulnerabilities or malicious code. We should review what Docker images are present on the host by executing the command “docker images”
+We then use the command to review the history of commits to the image ”docker history <imageName>”
+<img width="784" alt="image" src="https://user-images.githubusercontent.com/72175659/165652463-1a775e3b-e23c-488c-8e7b-2c5d62707f8c.png">
+We checked the docker history for nyuappsec/assign3, nyuappsec-db and nyuappsec-proxy and see that the images are recent and not old images.
+<img width="780" alt="image" src="https://user-images.githubusercontent.com/72175659/165652532-58b5110b-8aac-4b8b-9066-719c39093127.png">
+<img width="783" alt="image" src="https://user-images.githubusercontent.com/72175659/165652568-53e73958-1c66-4bb1-8ed3-97e32cf8d824.png">
+<img width="782" alt="image" src="https://user-images.githubusercontent.com/72175659/165652597-09d3ce3d-dec6-4b5a-bf43-0a0c795e6978.png">
 ### Subtask b
+Each dockerfile is built off a high trust base image major images like Ubuntu, Debian, spline, MySQL, etc are trusted. If you build off some random image built two years ago then it is not so much trusted. Thus, we do not need a remediation for these images.
 ### Subtask c
 ## Control 13 4.3:
 ### Subtask a
+
 ### Subtask b
 ### Subtask c
 ## Control 14 4.9:
