@@ -145,10 +145,6 @@ The python command SECRET_KEY = os.environ.get('SECRET_KEY') is going to get the
 
 <img width="1358" alt="image" src="https://user-images.githubusercontent.com/72175659/165240015-34abdbb6-4223-4ccd-9db8-933d35bcdbb1.png">
 
-In the db/k8 file we do the same thing and make a secrets file for the MYSQL_ROOT_PASSWORD. I have changed the name that I had for django-deploy.yaml file which was django-root-secret to now mysql-secrets but this encoded value has remained the same "mysql_root_password: dGhpc2lzYXRlc3R0aGluZy4=". 
-
-<img width="1360" alt="image" src="https://user-images.githubusercontent.com/72175659/165241583-9da6ca29-755c-4f8a-a5f6-db145d41b9c3.png">
-
 I have referenced to the name mysql-secrets that was also in the secrets file I have made in the secrets file (in the previous image). The key is the MYSQL_ROOT_PASSWORD that has been encoded in the django secret's file.
 
 <img width="1357" alt="image" src="https://user-images.githubusercontent.com/72175659/165242462-92005ce6-dc86-4629-8a53-6c5acf6706d8.png">
@@ -168,32 +164,125 @@ We run the command "kubectl get namespaces". This command outputs the namespaces
 <img width="783" alt="image" src="https://user-images.githubusercontent.com/72175659/165404993-bc2121da-05a0-44fe-a195-42b9009df276.png">
 
 ### Subtask b
+We created a namespace by making a file with the kind:namespace. I named my namespace as jbg469. I then ran the command “kubectl create -f Benchmarks/namespace.yaml”. 
+<img width="788" alt="image" src="https://user-images.githubusercontent.com/72175659/165650389-ba63b3bc-3704-44a8-9472-57d8426011b8.png">
+
+We inserted the namespace: jbg469 in every pod’s yaml file under metadata. Below is an example. 
+<img width="778" alt="image" src="https://user-images.githubusercontent.com/72175659/165650543-cd284560-6aa5-41b2-b303-1089167c5bef.png">
+
+
 ### Subtask c
+We run the commands “ kubectl apply -f db/k8
+kubectl apply -f GiftcardSite/k8
+kubectl apply -f proxy/k8” to show that it has been applied to all the yaml files that we have added namespace: jbg469 to. Then when we check our namespaces we see the new one that we had made.
+
+<img width="778" alt="image" src="https://user-images.githubusercontent.com/72175659/165650782-b0f64ac1-4e49-4bbc-aea7-14bd8fb55e99.png">
+
+
 ## Control 10 5.7.2:
 ### Subtask a
-We see in VS code when we search for "securityContext" (Ctr+F) in all the pod definition files it doesn't exist, therefore confirming the benchmark security review that no seccomp profile is set in pod definitions.
+Seccomp (secure computing mode) is used to restrict the set of system calls applications can make, allowing cluster administrators greater control over the security of workloads running in the cluster. Kubernetes disables seccomp profiles by default for historical reasons. So we know by default that Kubernetes disables seccomp profiles and we will need to add them into the deployment files for all the pods.
 ### Subtask b
+
+We add these three lines to all the deployment files for each pod underneath where it says spec so it will look like the following.
+spec:
+    securityContext:
+        seccompProfile:
+            type: RuntimeDefault
+            
+<img width="785" alt="image" src="https://user-images.githubusercontent.com/72175659/165650981-4f87a028-92ac-42e2-ad45-d586c1842d00.png">
+<img width="782" alt="image" src="https://user-images.githubusercontent.com/72175659/165651096-98450dba-8fdb-4b0e-adae-18bb8dc7b719.png">
+<img width="780" alt="image" src="https://user-images.githubusercontent.com/72175659/165651143-a8786a1a-5667-497e-8572-75c5ceca61fc.png">
+
 ### Subtask c
+We applied for each pod by running the commands 
+“kubectl apply -f db/k8
+kubectl apply -f GiftcardSite/k8
+kubectl apply -f proxy/k8”
+<img width="780" alt="image" src="https://user-images.githubusercontent.com/72175659/165651375-eb4c32bd-1d34-4d97-b881-8ffa052dc6ce.png">
+
 ## Docker Control 11 4.1:
 ### Subtask a
+We run the command:
+docker ps --quiet | xargs --max-args=1 -I{} docker exec {} cat /proc/1/status | grep '^Uid:' | awk '{print $3}'
+Returns 3 0 meaning that 3 containers are running as root. 
+This should return the effective UID for each container and where it returns 0, it indicates that the container process is running as root.
+<img width="783" alt="image" src="https://user-images.githubusercontent.com/72175659/165651465-4e018f97-ae89-4e01-ae0f-0cfdff7302e1.png">
+
 ### Subtask b
+We should ensure that the Dockerfile for each container image contains the information below:
+Remediation should be performed on the Giftcard site and proxy. Ensure users are created and switched by the completion of the build.
+
+<img width="781" alt="image" src="https://user-images.githubusercontent.com/72175659/165651529-13874667-53df-44e8-bd23-c8a727dd4c4d.png">
+We created a username for nginx by putting “USER nginx” in the dockerfile for proxy.
+
+<img width="781" alt="image" src="https://user-images.githubusercontent.com/72175659/165651628-963338c6-e487-47fd-8bb4-2988c44ea42f.png">
+We changed the user to django-app by putting USER django-app in the GiftcardSite docker file. We saved the files and then rebuilt it using the docker commands 
+“docker build -t nyuappsec/assign3:v0 .
+docker build -t nyuappsec/assign3-proxy:v0 proxy/
+docker build -t nyuappsec/assign3-db:v0 db/”
+
+
+
 ### Subtask c
+We should only have one output as 0 to show that there is a root and it has to be there.
+
+<img width="780" alt="image" src="https://user-images.githubusercontent.com/72175659/165652027-ec3756e6-28f9-4b8f-9c61-a06cd60137fe.png">
+
 ## Control 12 4.2:
 ### Subtask a
+There is no guarantee that these images are safe and do not contain security vulnerabilities or malicious code. We should review what Docker images are present on the host by executing the command “docker images”
+We then use the command to review the history of commits to the image ”docker history <imageName>”
+<img width="784" alt="image" src="https://user-images.githubusercontent.com/72175659/165652463-1a775e3b-e23c-488c-8e7b-2c5d62707f8c.png">
+We checked the docker history for nyuappsec/assign3, nyuappsec-db and nyuappsec-proxy and see that the images are recent and not old images.
+<img width="780" alt="image" src="https://user-images.githubusercontent.com/72175659/165652532-58b5110b-8aac-4b8b-9066-719c39093127.png">
+<img width="783" alt="image" src="https://user-images.githubusercontent.com/72175659/165652568-53e73958-1c66-4bb1-8ed3-97e32cf8d824.png">
+<img width="782" alt="image" src="https://user-images.githubusercontent.com/72175659/165652597-09d3ce3d-dec6-4b5a-bf43-0a0c795e6978.png">
 ### Subtask b
+Each dockerfile is built off a high trust base image major images like Ubuntu, Debian, spline, MySQL, etc are trusted. If you build off some random image built two years ago then it is not so much trusted. Thus, we do not need a remediation for these images.
 ### Subtask c
+    
 ## Control 13 4.3:
 ### Subtask a
+
 ### Subtask b
+We delete the "RUN apk add openjdk11" package 
+<img width="1089" alt="image" src="https://user-images.githubusercontent.com/72175659/165700889-58bf921f-e2e0-4b6d-bbe9-dfb76be6e767.png">
+
 ### Subtask c
+<img width="1093" alt="image" src="https://user-images.githubusercontent.com/72175659/165700727-abe8f687-e8db-4489-ab8b-695d653c902e.png">
+
 ## Control 14 4.9:
 ### Subtask a
+We run the command "docker images"
+<img width="1019" alt="image" src="https://user-images.githubusercontent.com/72175659/165653334-8f16991b-6daf-4712-9b54-41246a9c0f59.png">
+In the Dockerfiles for the image that we have, we should verify that there are no ADD instructions.
 ### Subtask b
+We should use COPY rather than ADD instructions in Dockerfiles so we change all the COPY to ADD.
+<img width="1014" alt="image" src="https://user-images.githubusercontent.com/72175659/165654121-b44e0303-ffef-4602-af51-9f2c43fafc23.png">
+<img width="1087" alt="image" src="https://user-images.githubusercontent.com/72175659/165683704-baacc9e2-53f2-4c29-9b4a-a3efb63c2513.png">
+The COPY instruction simply copies files from the local host machine to the container file system. The ADD instruction could potentially retrieve files from remote URLs and perform operations such as unpacking them. The ADD instruction therefore introduces security risks. For example, malicious files may be directly accessed from URLs without scanning, or there may be vulnerabilities associated with decompressing them.
+    
 ### Subtask c
+We were able to apply the changes and log into the gift card site. 
+<img width="1086" alt="image" src="https://user-images.githubusercontent.com/72175659/165691968-d45ce60c-86d2-479a-a3e3-4b2fc98cc63e.png">
+
+
 ## Control 15 4.10:
 ### Subtask a
+We verify that there are no secrets for the dockerfile in the images that we have access for. In the dockerfile for db/Dockerfile, we comment out the secret. 
+<img width="1091" alt="image" src="https://user-images.githubusercontent.com/72175659/165690417-cfbc86bd-b3f6-44da-aed6-00dd75a8cd62.png">
+
 ### Subtask b
+We delete the environment variable in the docker file.
+<img width="1089" alt="image" src="https://user-images.githubusercontent.com/72175659/165690758-28e6e994-abee-47b7-bbd1-83c7e0ab5991.png">
+We make a secrets file and ensure that the MYSQL_ROOT_PASSWORD value is encoded as "mysql_root_password: dGhpc2lzYXRlc3R0aGluZy4=".
+<img width="1087" alt="image" src="https://user-images.githubusercontent.com/72175659/165693094-56563cc4-28c0-4ffe-9f34-819b9f5a732c.png">
+
+
 ### Subtask c
+
+ 
 ## Oracle Control 16 1.2:
 ### Subtask a
 We execute ```ps -ef | egrep '^mysql.*$'``` inside a bash shell of the pod with the commands in the FAQ.
