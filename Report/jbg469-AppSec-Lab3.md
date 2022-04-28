@@ -203,13 +203,34 @@ We applied for each pod by running the commands
 “kubectl apply -f db/k8
 kubectl apply -f GiftcardSite/k8
 kubectl apply -f proxy/k8”
+<img width="780" alt="image" src="https://user-images.githubusercontent.com/72175659/165651375-eb4c32bd-1d34-4d97-b881-8ffa052dc6ce.png">
 
-
-### Subtask c
 ## Docker Control 11 4.1:
 ### Subtask a
+We run the command:
+docker ps --quiet | xargs --max-args=1 -I{} docker exec {} cat /proc/1/status | grep '^Uid:' | awk '{print $3}'
+Returns 3 0 meaning that 3 containers are running as root. 
+This should return the effective UID for each container and where it returns 0, it indicates that the container process is running as root.
+<img width="783" alt="image" src="https://user-images.githubusercontent.com/72175659/165651465-4e018f97-ae89-4e01-ae0f-0cfdff7302e1.png">
+
 ### Subtask b
+We should ensure that the Dockerfile for each container image contains the information below:
+Remediation should be performed on the Giftcard site and proxy. Ensure users are created and switched by the completion of the build.
+
+<img width="781" alt="image" src="https://user-images.githubusercontent.com/72175659/165651529-13874667-53df-44e8-bd23-c8a727dd4c4d.png">
+We created a username for nginx by putting “USER nginx” in the dockerfile for proxy.
+
+<img width="781" alt="image" src="https://user-images.githubusercontent.com/72175659/165651628-963338c6-e487-47fd-8bb4-2988c44ea42f.png">
+We changed the user to django-app by putting USER django-app in the GiftcardSite docker file. We saved the files and then rebuilt it using the docker commands 
+“docker build -t nyuappsec/assign3:v0 .
+docker build -t nyuappsec/assign3-proxy:v0 proxy/
+docker build -t nyuappsec/assign3-db:v0 db/”
+
+
+
 ### Subtask c
+
+
 ## Control 12 4.2:
 ### Subtask a
 ### Subtask b
