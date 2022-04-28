@@ -268,6 +268,9 @@ The COPY instruction simply copies files from the local host machine to the cont
 ## Control 15 4.10:
 ### Subtask a
 ### Subtask b
+We delete the environment variable in the docker file.
+<img width="815" alt="image" src="https://user-images.githubusercontent.com/72175659/165688387-6efadba8-537d-4556-b9fa-a6b8b92a97c5.png">
+
 ### Subtask c
 ## Oracle Control 16 1.2:
 ### Subtask a
