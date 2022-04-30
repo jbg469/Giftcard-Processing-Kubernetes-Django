@@ -154,6 +154,7 @@ I have referenced to the name mysql-secrets that was also in the secrets file I 
 
 ### Subtask c
 <img width="1357" alt="image" src="https://user-images.githubusercontent.com/72175659/165404475-bdb25ef3-f335-42f0-959a-8b4329e2c91d.png">
+We can see our secrets.
 
 
 ## Control 9 5.7.1:
@@ -248,7 +249,7 @@ We checked the docker history for nyuappsec/assign3, nyuappsec-db and nyuappsec-
 ### Subtask b
 Each dockerfile is built off a high trust base image major images like Ubuntu, Debian, spline, MySQL, etc are trusted. If you build off some random image built two years ago then it is not so much trusted. Thus, we do not need a remediation for these images.
 ### Subtask c
-    
+    No remediation.
 ## Control 13 4.3:
 ### Subtask a
 We audit the Dockerfiles and locate excessive package installation. We run the command docker ps --quiet to list all the running instances of containers.
@@ -440,7 +441,7 @@ We see nothing out of the ordinary. Nice
 ### Subtask b
 There is no remediation 
 ### Subtask c
-There is no remediation therefore no resolution. We audited the 
+There is no remediation therefore no resolution. We audited the .yaml's, logs, pods, containers and found nothing extraneous.
 ## Control 18 2.7:
 ### Subtask a
 We run 
