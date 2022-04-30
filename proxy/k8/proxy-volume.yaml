@@ -13,4 +13,3 @@ spec:
     - ReadWriteMany
   hostPath:
     path: /vol/static
-kub
