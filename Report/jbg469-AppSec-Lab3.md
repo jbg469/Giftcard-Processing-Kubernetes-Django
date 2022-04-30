@@ -489,4 +489,31 @@ Dropping the GiftcardSiteDB file would make registering, logging in, and out non
 There is no resolution, no extra db’s to drop. 
 
 # Part 2
+We made a CronJobs file and ensured that the file had the schedule set to hourly which was "* */1 * * *". We include our namespace name, the image here is image: mysql:latest since the control 2.7 from SQL was used. We use the command from the audit in 2.7 and then add the following with the mysql root password and mysql-service from the value in django-deploy file. Thus, this will be everything that is inside the command which will successfully show on our minikube dashboard.
+    - date; echo Hello from the Kubernetes cluster; mysql -h mysql-service --user=root --password=thisisatestthing. -e "SELECT VARIABLE_NAME, VARIABLE_VALUE
+              FROM performance_schema.global_variables where VARIABLE_NAME like
+              'default_password_lifetime';"; echo cron complete
+    
+ 
+<img width="1329" alt="image" src="https://user-images.githubusercontent.com/72175659/166086198-721e88cc-3de7-49ee-82d7-c6a129a044f0.png">
+
+We apply the changes to the cronjobs file using the kubectl command that we have made and then open up minikube dashboard where we will see our cronjob and the logs of the pod that we have made. 
+<img width="1326" alt="image" src="https://user-images.githubusercontent.com/72175659/166086511-4cea893e-9211-4634-915f-f94925171f6d.png">
+
+ We see that our dashboard shows the job successfully for our Cronjobs named "hello". 
+ <img width="1328" alt="image" src="https://user-images.githubusercontent.com/72175659/166086555-874460d3-e8a3-4bce-9f74-1fdb8bc52791.png">
+   
+
+Now, we will make another job file for the MYSQL problem 2.9. We make another jobs file but change the name and in this case I changed it to "anotherjob" (has to be all lowercase) and I changed the command to what was inside the audit in 2.9. We put this inside the command - date; echo Hello from the Kubernetes cluster; mysql -h mysql-service --user=root --password=thisisatestthing. -e "SELECT VARIABLE_NAME, VARIABLE_VALUE
+              FROM performance_schema.global_variables where VARIABLE_NAME in
+              ('password_history', 'password_reuse_interval');"; echo cron is complete
+<img width="1328" alt="image" src="https://user-images.githubusercontent.com/72175659/166086664-b312d129-ee1e-430f-99c2-b679b259cc8b.png">
+    
+We apply the changes inside the cronjobs file and then open the minikube dashboard. 
+
+<img width="1328" alt="image" src="https://user-images.githubusercontent.com/72175659/166086763-19dcc56a-d3f2-48f1-8de1-5f78b5e8cc0e.png">
+
+On minikube dashboard it shows that our command worked and even printed out that the cron is complete.
+<img width="1331" alt="image" src="https://user-images.githubusercontent.com/72175659/166086865-0788b92f-0947-4b51-89aa-841dd10ab54e.png">
+
 
