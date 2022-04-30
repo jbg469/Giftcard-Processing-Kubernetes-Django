@@ -282,6 +282,7 @@ We make a secrets file and ensure that the MYSQL_ROOT_PASSWORD value is encoded 
 
 ### Subtask c
 After we apply the changes we see that everything is working in the dockerfile.
+We remove secrets from Dockerfiles and configure to use the secrets file instead. We apply the changes using kubectl and ensure the application is still working correctly which it does.
 <img width="986" alt="image" src="https://user-images.githubusercontent.com/72175659/166089616-183e7612-4725-4595-a5d6-ae5b33ed1411.png">
 
 
