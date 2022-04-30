@@ -501,72 +501,81 @@ There is no resolution, no extra db’s to drop.
 
 # Part 2
 We made a CronJobs file and ensured that the file had the schedule set to hourly which was "0 * * * *". We include our namespace name, the image here is image: nyuappsec/assign3-db:v0 since that is the image we see in the database .yaml files. We use the command from the audit book for 2.7 and combine with the audit command from 2.9. We add and extra audit command that checks control 4.2 to prove we can use multiple commands in a CronJob. The resulting command is the following.
-    ```
-    - /bin/sh
-            - -c
-            - date; mysql -h mysql-service -u root -pthisisatestthing. -e "SELECT VARIABLE_NAME, VARIABLE_VALUE
-              FROM performance_schema.global_variables where VARIABLE_NAME in ('password_history', 'password_reuse_interval', 'default_password_lifetime');"; mysql -h mysql-service -u root -pthisisatestthing. -e "SELECT * FROM information_schema.SCHEMATA where SCHEMA_NAME not in ('mysql','information_schema', 'sys', 'performance_schema');"    
-    ```
+        ```
+        - /bin/sh
+                - -c
+                - date; mysql -h mysql-service -u root -pthisisatestthing. -e "SELECT VARIABLE_NAME, VARIABLE_VALUE
+                  FROM performance_schema.global_variables where VARIABLE_NAME in ('password_history', 'password_reuse_interval', 'default_password_lifetime');"; mysql -h mysql-service -u root -pthisisatestthing. -e "SELECT * FROM information_schema.SCHEMATA where SCHEMA_NAME not in ('mysql','information_schema', 'sys', 'performance_schema');"    
+        ```
+    
  -h mysql-service connects mysql the the name of our host found in our .yaml files. 
+    
  -u root -pthisisatestthing. logs us into the DB.  
+    
  -e executes the statment SQL and quits. 
     
 Our resulting CronJob looks like this:
     
-```
+    ```
     apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: johnsjobfinal
-  namespace: jbg469
-spec:
-  schedule: "0 * * * *"
-  jobTemplate:
+    kind: CronJob
+    metadata:
+      name: johnsjobfinal
+      namespace: jbg469
     spec:
-      template:
+      schedule: "0 * * * *"
+      jobTemplate:
         spec:
-          containers:
-          - name: johnsjobfinal
-            image: nyuappsec/assign3-db:v0
-            imagePullPolicy: IfNotPresent
-            command:
-            - /bin/sh
-            - -c
-            - date; mysql -h mysql-service -u root -pthisisatestthing. -e "SELECT VARIABLE_NAME, VARIABLE_VALUE
-              FROM performance_schema.global_variables where VARIABLE_NAME in ('password_history', 'password_reuse_interval', 'default_password_lifetime');"; mysql -h mysql-service -u root -pthisisatestthing. -e "SELECT * FROM information_schema.SCHEMATA where SCHEMA_NAME not in ('mysql','information_schema', 'sys', 'performance_schema');"
-          restartPolicy: Never
-    
-```
+          template:
+            spec:
+              containers:
+              - name: johnsjobfinal
+                image: nyuappsec/assign3-db:v0
+                imagePullPolicy: IfNotPresent
+                command:
+                - /bin/sh
+                - -c
+                - date; mysql -h mysql-service -u root -pthisisatestthing. -e "SELECT VARIABLE_NAME, VARIABLE_VALUE
+                  FROM performance_schema.global_variables where VARIABLE_NAME in ('password_history', 'password_reuse_interval', 'default_password_lifetime');"; mysql -h mysql-service -u root -pthisisatestthing. -e "SELECT * FROM information_schema.SCHEMATA where SCHEMA_NAME not in ('mysql','information_schema', 'sys', 'performance_schema');"
+              restartPolicy: Never
+    ```
   
     
 We create the cronjob  using the kubectl -apply command that we have made and then open up minikube dashboard where we will see our cronjob and the logs of the pod that we have made. The time here is 9:40 AM
     
-    <img width="953" alt="Screen Shot 2022-04-30 at 12 40 23 PM" src="https://user-images.githubusercontent.com/72175659/166122849-919b3f57-4160-48b2-a93c-1a73bc34f966.png">
+
+<img width="953" alt="Screen Shot 2022-04-30 at 12 40 23 PM" src="https://user-images.githubusercontent.com/72175659/166123214-16c0b266-235b-4457-8747-611ab8fdf0a6.png">
 
 
-We run ```minikube dashboard``` to manually trigger  "johnsjobfinal" to immediately see if it works. Checking the log we see Controls 4.2,2.7, and 2.9 are verified.
+We run minikube dashboard to manually trigger  "johnsjobfinal" to immediately see if it works. Checking the log we see Controls 4.2,2.7, and 2.9 are verified.
    
 <img width="953" alt="Screen Shot 2022-04-30 at 12 42 38 PM" src="https://user-images.githubusercontent.com/72175659/166122871-70d88e8f-64f8-4413-9587-1ff539b7af36.png">
 
+
+
+    
+    
 Now, we let some time pass to show that indeed the job is done every hour.
     
-    <img width="952" alt="Screen Shot 2022-04-30 at 2 04 53 PM" src="https://user-images.githubusercontent.com/72175659/166122933-6e852afb-9b10-453a-bd17-b9e94b9bd659.png">
+   
+<img width="952" alt="Screen Shot 2022-04-30 at 2 04 53 PM" src="https://user-images.githubusercontent.com/72175659/166123344-17d8c136-95af-47ff-90ad-e060509b6f46.png">
 
 We see that there was a job started at 10 AM and 11 AM. Success
  
 <img width="952" alt="Screen Shot 2022-04-30 at 2 06 33 PM" src="https://user-images.githubusercontent.com/72175659/166122947-1f3f0121-e18c-4f22-a698-a2c18c8b755b.png">
-Checking the logs for the job pods we see that they give expected out. 
+    
+Checking the logs for the job pods we see that they give expected output for SQL controls 2.7,2.9, and 4.2. 
     
     
-   ```
-Apr 30 17:00:01 UTC 2022
-mysql: [Warning] Using a password on the command line interface can be insecure.
-VARIABLE_NAME	VARIABLE_VALUE
-default_password_lifetime	365
-password_history	5
-password_reuse_interval	365
-mysql: [Warning] Using a password on the command line interface can be insecure.
-CATALOG_NAME	SCHEMA_NAME	DEFAULT_CHARACTER_SET_NAME	DEFAULT_COLLATION_NAME	SQL_PATHDEFAULT_ENCRYPTION
-def	GiftcardSiteDB	utf8mb4	utf8mb4_0900_ai_ci	NULL	NO
-   ```
+    ```
+    Apr 30 17:00:01 UTC 2022
+    mysql: [Warning] Using a password on the command line interface can be insecure.
+    VARIABLE_NAME	VARIABLE_VALUE
+    default_password_lifetime	365
+    password_history	5
+    password_reuse_interval	365
+    mysql: [Warning] Using a password on the command line interface can be insecure.
+    CATALOG_NAME	SCHEMA_NAME	DEFAULT_CHARACTER_SET_NAME	DEFAULT_COLLATION_NAME	SQL_PATHDEFAULT_ENCRYPTION
+    def	GiftcardSiteDB	utf8mb4	utf8mb4_0900_ai_ci	NULL	NO
+    ```
     
