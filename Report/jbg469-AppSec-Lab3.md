@@ -244,6 +244,8 @@ Each dockerfile is built off a high trust base image major images like Ubuntu, D
     
 ## Control 13 4.3:
 ### Subtask a
+We audit the Dockerfiles and locate excessive package installation. We run the command docker ps --quiet to list all the running instances of containers.
+<img width="1330" alt="image" src="https://user-images.githubusercontent.com/72175659/166090024-8847299c-a878-4cbe-a944-73fd5a01c2f0.png">
 
 ### Subtask b
 We delete the "RUN apk add openjdk11" package 
