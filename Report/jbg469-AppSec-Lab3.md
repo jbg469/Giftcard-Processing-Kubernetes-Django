@@ -481,7 +481,7 @@ SET PERSIST password_reuse_interval = 365;
 
 <img width="1168" alt="Screen Shot 2022-04-24 at 7 01 45 PM" src="https://user-images.githubusercontent.com/72175659/165000341-9afaadb8-c4a5-4c9e-98e3-c53ba1692ad6.png">
 
-resolved per textbook specifications.
+resolved per benchmark book specifications.
 
 ## Control 20 4.2:
 ### Subtask a
@@ -501,12 +501,14 @@ There is no resolution, no extra db’s to drop.
 
 # Part 2
 We made a CronJobs file and ensured that the file had the schedule set to hourly which was "0 * * * *". We include our namespace name, the image here is image: nyuappsec/assign3-db:v0 since that is the image we see in the database .yaml files. We use the command from the audit book for 2.7 and combine with the audit command from 2.9. We add and extra audit command that checks control 4.2 to prove we can use multiple commands in a CronJob. The resulting command is the following.
-        ```
-        - /bin/sh
-                - -c
-                - date; mysql -h mysql-service -u root -pthisisatestthing. -e "SELECT VARIABLE_NAME, VARIABLE_VALUE
-                  FROM performance_schema.global_variables where VARIABLE_NAME in ('password_history', 'password_reuse_interval', 'default_password_lifetime');"; mysql -h mysql-service -u root -pthisisatestthing. -e "SELECT * FROM information_schema.SCHEMATA where SCHEMA_NAME not in ('mysql','information_schema', 'sys', 'performance_schema');"    
-        ```
+    
+    
+            ```
+            - /bin/sh
+                    - -c
+                    - date; mysql -h mysql-service -u root -pthisisatestthing. -e "SELECT VARIABLE_NAME, VARIABLE_VALUE
+                      FROM performance_schema.global_variables where VARIABLE_NAME in ('password_history', 'password_reuse_interval', 'default_password_lifetime');"; mysql -h mysql-service -u root -pthisisatestthing. -e "SELECT * FROM information_schema.SCHEMATA where SCHEMA_NAME not in ('mysql','information_schema', 'sys', 'performance_schema');"    
+            ```
     
  -h mysql-service connects mysql the the name of our host found in our .yaml files. 
     
