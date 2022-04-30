@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: johnsjobfinal
+  namespace: jbg469
+spec:
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: johnsjobfinal
+            image: nyuappsec/assign3-db:v0
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - date; mysql -h mysql-service -u root -pthisisatestthing. -e "SELECT VARIABLE_NAME, VARIABLE_VALUE
+              FROM performance_schema.global_variables where VARIABLE_NAME in ('password_history', 'password_reuse_interval', 'default_password_lifetime');"; mysql -h mysql-service -u root -pthisisatestthing. -e "SELECT * FROM information_schema.SCHEMATA where SCHEMA_NAME not in ('mysql','information_schema', 'sys', 'performance_schema');"
+          restartPolicy: Never
