@@ -496,7 +496,7 @@ Dropping the GiftcardSiteDB file would make registering, logging in, and out non
 There is no resolution, no extra db’s to drop. 
 
 # Part 2
-We made a CronJobs file and ensured that the file had the schedule set to hourly which was "* */1 * * *". We include our namespace name, the image here is image: mysql:latest since the control 2.7 from SQL was used. We use the command from the audit in 2.7 and then add the following with the mysql root password and mysql-service from the value in django-deploy file. Thus, this will be everything that is inside the command which will successfully show on our minikube dashboard.
+We made a CronJobs file and ensured that the file had the schedule set to hourly which was "@hourly". We include our namespace name, the image here is image: mysql:latest since the control 2.7 from SQL was used. We use the command from the audit in 2.7 and then add the following with the mysql root password and mysql-service from the value in django-deploy file. Thus, this will be everything that is inside the command which will successfully show on our minikube dashboard.
     - date; echo Hello from the Kubernetes cluster; mysql -h mysql-service --user=root --password=thisisatestthing. -e "SELECT VARIABLE_NAME, VARIABLE_VALUE
               FROM performance_schema.global_variables where VARIABLE_NAME like
               'default_password_lifetime';"; echo cron complete
