@@ -231,13 +231,17 @@ We should only have one output as 0 to show that there is a root and it has to b
 
 ## Control 12 4.2:
 ### Subtask a
+
 There is no guarantee that these images are safe and do not contain security vulnerabilities or malicious code. We should review what Docker images are present on the host by executing the command “docker images”
 We then use the command to review the history of commits to the image ”docker history <imageName>”
+    
 <img width="784" alt="image" src="https://user-images.githubusercontent.com/72175659/165652463-1a775e3b-e23c-488c-8e7b-2c5d62707f8c.png">
 We checked the docker history for nyuappsec/assign3, nyuappsec-db and nyuappsec-proxy and see that the images are recent and not old images.
+    
 <img width="780" alt="image" src="https://user-images.githubusercontent.com/72175659/165652532-58b5110b-8aac-4b8b-9066-719c39093127.png">
 <img width="783" alt="image" src="https://user-images.githubusercontent.com/72175659/165652568-53e73958-1c66-4bb1-8ed3-97e32cf8d824.png">
 <img width="782" alt="image" src="https://user-images.githubusercontent.com/72175659/165652597-09d3ce3d-dec6-4b5a-bf43-0a0c795e6978.png">
+    
 ### Subtask b
 Each dockerfile is built off a high trust base image major images like Ubuntu, Debian, spline, MySQL, etc are trusted. If you build off some random image built two years ago then it is not so much trusted. Thus, we do not need a remediation for these images.
 ### Subtask c
@@ -496,31 +500,73 @@ Dropping the GiftcardSiteDB file would make registering, logging in, and out non
 There is no resolution, no extra db’s to drop. 
 
 # Part 2
-We made a CronJobs file and ensured that the file had the schedule set to hourly which was "@hourly". We include our namespace name, the image here is image: mysql:latest since the control 2.7 from SQL was used. We use the command from the audit in 2.7 and then add the following with the mysql root password and mysql-service from the value in django-deploy file. Thus, this will be everything that is inside the command which will successfully show on our minikube dashboard.
-    - date; echo Hello from the Kubernetes cluster; mysql -h mysql-service --user=root --password=thisisatestthing. -e "SELECT VARIABLE_NAME, VARIABLE_VALUE
-              FROM performance_schema.global_variables where VARIABLE_NAME like
-              'default_password_lifetime';"; echo cron complete
+We made a CronJobs file and ensured that the file had the schedule set to hourly which was "0 * * * *". We include our namespace name, the image here is image: nyuappsec/assign3-db:v0 since that is the image we see in the database .yaml files. We use the command from the audit book for 2.7 and combine with the audit command from 2.9. We add and extra audit command that checks control 4.2 to prove we can use multiple commands in a CronJob. The resulting command is the following.
+    ```
+    - /bin/sh
+            - -c
+            - date; mysql -h mysql-service -u root -pthisisatestthing. -e "SELECT VARIABLE_NAME, VARIABLE_VALUE
+              FROM performance_schema.global_variables where VARIABLE_NAME in ('password_history', 'password_reuse_interval', 'default_password_lifetime');"; mysql -h mysql-service -u root -pthisisatestthing. -e "SELECT * FROM information_schema.SCHEMATA where SCHEMA_NAME not in ('mysql','information_schema', 'sys', 'performance_schema');"    
+    ```
+ -h mysql-service connects mysql the the name of our host found in our .yaml files. 
+ -u root -pthisisatestthing. logs us into the DB.  
+ -e executes the statment SQL and quits. 
     
- 
-<img width="1329" alt="image" src="https://user-images.githubusercontent.com/72175659/166086198-721e88cc-3de7-49ee-82d7-c6a129a044f0.png">
+Our resulting CronJob looks like this:
+    
+```
+    apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: johnsjobfinal
+  namespace: jbg469
+spec:
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: johnsjobfinal
+            image: nyuappsec/assign3-db:v0
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - date; mysql -h mysql-service -u root -pthisisatestthing. -e "SELECT VARIABLE_NAME, VARIABLE_VALUE
+              FROM performance_schema.global_variables where VARIABLE_NAME in ('password_history', 'password_reuse_interval', 'default_password_lifetime');"; mysql -h mysql-service -u root -pthisisatestthing. -e "SELECT * FROM information_schema.SCHEMATA where SCHEMA_NAME not in ('mysql','information_schema', 'sys', 'performance_schema');"
+          restartPolicy: Never
+    
+```
+  
+    
+We create the cronjob  using the kubectl -apply command that we have made and then open up minikube dashboard where we will see our cronjob and the logs of the pod that we have made. The time here is 9:40 AM
+    
+    <img width="953" alt="Screen Shot 2022-04-30 at 12 40 23 PM" src="https://user-images.githubusercontent.com/72175659/166122849-919b3f57-4160-48b2-a93c-1a73bc34f966.png">
 
-We apply the changes to the cronjobs file using the kubectl command that we have made and then open up minikube dashboard where we will see our cronjob and the logs of the pod that we have made. 
-<img width="1326" alt="image" src="https://user-images.githubusercontent.com/72175659/166086511-4cea893e-9211-4634-915f-f94925171f6d.png">
 
- We see that our dashboard shows the job successfully for our Cronjobs named "hello". 
- <img width="1328" alt="image" src="https://user-images.githubusercontent.com/72175659/166086555-874460d3-e8a3-4bce-9f74-1fdb8bc52791.png">
+We run ```minikube dashboard``` to manually trigger  "johnsjobfinal" to immediately see if it works. Checking the log we see Controls 4.2,2.7, and 2.9 are verified.
    
+<img width="953" alt="Screen Shot 2022-04-30 at 12 42 38 PM" src="https://user-images.githubusercontent.com/72175659/166122871-70d88e8f-64f8-4413-9587-1ff539b7af36.png">
 
-Now, we will make another job file for the MYSQL problem 2.9. We make another jobs file but change the name and in this case I changed it to "anotherjob" (has to be all lowercase) and I changed the command to what was inside the audit in 2.9. We put this inside the command - date; echo Hello from the Kubernetes cluster; mysql -h mysql-service --user=root --password=thisisatestthing. -e "SELECT VARIABLE_NAME, VARIABLE_VALUE
-              FROM performance_schema.global_variables where VARIABLE_NAME in
-              ('password_history', 'password_reuse_interval');"; echo cron is complete
-<img width="1328" alt="image" src="https://user-images.githubusercontent.com/72175659/166086664-b312d129-ee1e-430f-99c2-b679b259cc8b.png">
+Now, we let some time pass to show that indeed the job is done every hour.
     
-We apply the changes inside the cronjobs file and then open the minikube dashboard. 
+    <img width="952" alt="Screen Shot 2022-04-30 at 2 04 53 PM" src="https://user-images.githubusercontent.com/72175659/166122933-6e852afb-9b10-453a-bd17-b9e94b9bd659.png">
 
-<img width="1328" alt="image" src="https://user-images.githubusercontent.com/72175659/166086763-19dcc56a-d3f2-48f1-8de1-5f78b5e8cc0e.png">
-
-On minikube dashboard it shows that our command worked and even printed out that the cron is complete.
-<img width="1331" alt="image" src="https://user-images.githubusercontent.com/72175659/166086865-0788b92f-0947-4b51-89aa-841dd10ab54e.png">
-
-
+We see that there was a job started at 10 AM and 11 AM. Success
+ 
+<img width="952" alt="Screen Shot 2022-04-30 at 2 06 33 PM" src="https://user-images.githubusercontent.com/72175659/166122947-1f3f0121-e18c-4f22-a698-a2c18c8b755b.png">
+Checking the logs for the job pods we see that they give expected out. 
+    
+    
+   ```
+Apr 30 17:00:01 UTC 2022
+mysql: [Warning] Using a password on the command line interface can be insecure.
+VARIABLE_NAME	VARIABLE_VALUE
+default_password_lifetime	365
+password_history	5
+password_reuse_interval	365
+mysql: [Warning] Using a password on the command line interface can be insecure.
+CATALOG_NAME	SCHEMA_NAME	DEFAULT_CHARACTER_SET_NAME	DEFAULT_COLLATION_NAME	SQL_PATHDEFAULT_ENCRYPTION
+def	GiftcardSiteDB	utf8mb4	utf8mb4_0900_ai_ci	NULL	NO
+   ```
+    
