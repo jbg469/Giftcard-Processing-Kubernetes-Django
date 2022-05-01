@@ -466,6 +466,9 @@ we run
 set persist default_password_lifetime = 365;
 
 <img width="988" alt="Screen Shot 2022-04-24 at 7 50 27 PM" src="https://user-images.githubusercontent.com/72175659/165001867-ffb628ec-e4dc-45cc-bd15-485ebf825b28.png">
+    
+To make these changes persist after every build we also add set persist default_password_lifetime = 365; to the bottom of the setup.sql file
+<img width="1274" alt="Screen Shot 2022-04-30 at 8 39 37 PM" src="https://user-images.githubusercontent.com/72175659/166127570-474bd774-afde-42d4-9201-37468b5a0fee.png">
 
 ### Subtask c
 <img width="1054" alt="Screen Shot 2022-04-24 at 7 51 40 PM" src="https://user-images.githubusercontent.com/72175659/165001884-6325a314-6df2-4722-8e9c-0b03dc8192aa.png">
@@ -488,7 +491,11 @@ SET PERSIST password_history = 5;
 Set a global policy that passwords have a lifetime to approximately one year (in days)
 SET PERSIST password_reuse_interval = 365;
 <img width="972" alt="Screen Shot 2022-04-24 at 7 00 11 PM" src="https://user-images.githubusercontent.com/72175659/165000301-cf563b07-8d51-48e8-9a26-5aec79ffd552.png">
+To make these changes persist after every build we also add SET PERSIST password_history = 5;  &SET PERSIST password_reuse_interval = 365; at the bottom of setup.sql.
 
+<img width="1274" alt="Screen Shot 2022-04-30 at 8 39 37 PM" src="https://user-images.githubusercontent.com/72175659/166127613-ebed3d0c-e9fe-46f3-aa85-b6acb4e7a36e.png">
+
+    
 ### Subtask c
 
 <img width="1168" alt="Screen Shot 2022-04-24 at 7 01 45 PM" src="https://user-images.githubusercontent.com/72175659/165000341-9afaadb8-c4a5-4c9e-98e3-c53ba1692ad6.png">
