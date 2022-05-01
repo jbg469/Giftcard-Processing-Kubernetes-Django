@@ -236,8 +236,8 @@ We should only have one output as 0 to show that there is a root and it has to b
 ## Control 12 4.2:
 ### Subtask a
 
-There is no guarantee that these images are safe and do not contain security vulnerabilities or malicious code. We should review what Docker images are present on the host by executing the command “docker images”
-We then use the command to review the history of commits to the image ”docker history <imageName>”
+There is no guarantee that these images are safe and do not contain security vulnerabilities or malicious code. We should review what Docker images are present on the host by executing the command docker images
+We then use the command to review the history of commits to the image docker history <imageName>
     
 <img width="784" alt="image" src="https://user-images.githubusercontent.com/72175659/165652463-1a775e3b-e23c-488c-8e7b-2c5d62707f8c.png">
 We checked the docker history for nyuappsec/assign3, nyuappsec-db and nyuappsec-proxy and see that the images are recent and not old images.
@@ -254,14 +254,22 @@ Each dockerfile is built off a high trust base image major images like Ubuntu, D
 ### Subtask a
 We audit the Dockerfiles and locate excessive package installation. We run the command docker ps --quiet to list all the running instances of containers.
 <img width="1330" alt="image" src="https://user-images.githubusercontent.com/72175659/166090024-8847299c-a878-4cbe-a944-73fd5a01c2f0.png">
+    
+    The command from the audit book wont work on all the packages since they are not all alpine linux an easier way to verify installed packages is to look at the docker image at the root and the requirements.txt file to see what is being installed 
+<img width="1266" alt="Screen Shot 2022-04-30 at 7 07 11 PM" src="https://user-images.githubusercontent.com/72175659/166126644-109f1181-adb6-4944-b196-241274b9933d.png">
 
 ### Subtask b
-We delete the "RUN apk add openjdk11" package 
+We delete the "RUN apk add openjdk11" package do sudo minikube delete to delete all traces of the minikube docker 
 <img width="1089" alt="image" src="https://user-images.githubusercontent.com/72175659/165700889-58bf921f-e2e0-4b6d-bbe9-dfb76be6e767.png">
+We rebuild with the commands in the intro and follow the procedure for each apk being installed in the docker and the requirements.txt
+    <img width="1066" alt="Screen Shot 2022-04-30 at 7 08 05 PM" src="https://user-images.githubusercontent.com/72175659/166126705-f143c6e4-cc4d-4888-ad1b-7e33743006b7.png">
 
 ### Subtask c
 <img width="1093" alt="image" src="https://user-images.githubusercontent.com/72175659/165700727-abe8f687-e8db-4489-ab8b-695d653c902e.png">
-
+<img width="1289" alt="Screen Shot 2022-04-30 at 7 37 15 PM" src="https://user-images.githubusercontent.com/72175659/166126711-23457ba0-daf3-4c5c-b47b-6f5b15b21d4d.png">
+Removing the packages we commented out in the docker and asgiref==3.2.10 in the requirements.txt file resulted in a lighter app that doesn't crash lets us log, register, and sign out. When we commented out a package and after building the image the website didn't work, the package was deemed essential. 
+    
+    
 ## Control 14 4.9:
 ### Subtask a
 We run the command "docker images"
